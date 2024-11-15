@@ -1,0 +1,40 @@
+- vtk-version: 9.4.0
+  vtkm-version: 2.2.0-8-ga2784a96f
+  hostname: frontier10453
+  date: 2024-11-09T03:05:53-0500
+  device: Kokkos
+  num-threads: 128
+  input-file: /ccs/home/spyridon97/Data/JSM-tet.vtu
+  topology-connections: regular
+  num-input-points: 50429916
+  num-input-cells: 299608989
+  dataset-memory-used: 13664044
+  experiments:
+    - algorithm-name: P-Hash-Sort
+      hash-name: FNV1A
+      full-name: P-Hash-Sort FNV1A
+[0m[31m2024-11-09 03:06:04.855 (  11.395s) [main thread     ]         TryExecute.cxx:77     ERR| TryExecute encountered an error: std::bad_alloc: hipErrorOutOfMemory: out of memory[0m
+[0m[31m2024-11-09 03:06:04.855 (  11.396s) [main thread     ]         TryExecute.cxx:77     ERR| Failing functor: vtkm::cont::detail::SortByKeyFunctor[0m
+[0m[31m2024-11-09 03:06:04.855 (  11.396s) [main thread     ]         TryExecute.cxx:77     ERR| Failing device: Kokkos[0m
+[0m[31m2024-11-09 03:06:04.890 (  11.431s) [main thread     ]         TryExecute.cxx:36     ERR| TryExecute encountered an error: Bad allocation (Failed to allocate 8975062784 bytes on Kokkos device)[0m
+[0m[31m2024-11-09 03:06:04.890 (  11.431s) [main thread     ]         TryExecute.cxx:36     ERR| Failing functor: vtkm::cont::detail::ScanExtendedFunctor<long long>[0m
+[0m[31m2024-11-09 03:06:04.890 (  11.431s) [main thread     ]         TryExecute.cxx:36     ERR| Failing device: Kokkos[0m
+[0m[31m2024-11-09 03:06:04.890 (  11.431s) [main thread     ]         TryExecute.cxx:36     ERR| The failing device has been disabled.[0m
+[0m[1m[91m
+Loguru caught a signal: SIGSEGV
+[0m[0m[31mStack trace:
+13            0x52ed4a /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x52ed4a]
+12      0x7fffcec3624d __libc_start_main + 239
+11            0x61267b /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x61267b]
+10            0x61e025 /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x61e025]
+9             0x625af2 /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x625af2]
+8             0x6267c7 /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x6267c7]
+7             0x628128 vtkm::worklet::Keys<unsigned int>::Keys<vtkm::cont::StorageTagBasic>(vtkm::cont::ArrayHandle<unsigned int, vtkm::cont::StorageTagBasic> const&, vtkm::cont::DeviceAdapterId) + 88
+6       0x7fffd39bbaee void vtkm::worklet::Keys<unsigned int>::BuildArrays<vtkm::cont::ArrayHandle<unsigned int, vtkm::cont::StorageTagBasic> >(vtkm::cont::ArrayHandle<unsigned int, vtkm::cont::StorageTagBasic> const&, vtkm::worklet::KeysSortType, vtkm::cont::DeviceAdapterId) + 126
+5       0x7fffd39bbfe5 void vtkm::worklet::Keys<unsigned int>::BuildArraysInternal<vtkm::cont::ArrayHandle<unsigned int, vtkm::cont::StorageTagBasic> >(vtkm::cont::ArrayHandle<unsigned int, vtkm::cont::StorageTagBasic>&, vtkm::cont::DeviceAdapterId) + 805
+4       0x7fffd4dc2797 long long vtkm::cont::ArrayGetValue<long long, vtkm::cont::StorageTagBasic>(long long, vtkm::cont::ArrayHandle<long long, vtkm::cont::StorageTagBasic> const&) + 87
+3       0x7fffd4dc6820 void vtkm::cont::ArrayGetValues<vtkm::cont::StorageTagBasic, long long, vtkm::cont::StorageTagBasic >(vtkm::cont::ArrayHandle<long long, vtkm::cont::StorageTagBasic> const&, vtkm::cont::ArrayHandle<long long, vtkm::cont::StorageTagBasic> const&, std::vector<long long >&) + 208
+2       0x7fffd4dc6928 void vtkm::cont::ArrayGetValues<vtkm::cont::StorageTagBasic, long long, vtkm::cont::StorageTagBasic, vtkm::cont::StorageTagBasic>(vtkm::cont::ArrayHandle<long long, vtkm::cont::StorageTagBasic> const&, vtkm::cont::ArrayHandle<long long, vtkm::cont::StorageTagBasic> const&, vtkm::cont::ArrayHandle<long long, vtkm::cont::StorageTagBasic>&) + 72
+1       0x7fffd29c164e vtkm::cont::internal::ArrayGetValuesImpl(vtkm::cont::UnknownArrayHandle const&, vtkm::cont::UnknownArrayHandle const&, vtkm::cont::UnknownArrayHandle const&, std::integral_constant<bool, false>) + 110
+0       0x7fffd29c4cdf /lustre/orion/scratch/spyridon97/csc143/vtk-external-facelist-evaluation/build/_deps/vtk-build/lib64/libvtkm_cont-9.4.so.2.2(+0x211ecdf) [0x7fffd29c4cdf][0m
+[0m[31m2024-11-09 03:06:04.890 (  11.431s) [main thread     ]                       :0     FATL| Signal: SIGSEGV[0m

@@ -1,0 +1,828 @@
+- vtk-version: 9.4.0
+  vtkm-version: 2.2.0-8-ga2784a96f
+  hostname: frontier10376
+  date: 2024-12-12T09:14:41-0500
+  device: TBB
+  num-threads: 1
+  input-file: /ccs/home/spyridon97/Data/F-15-tet.vtu
+  topology-connections: regular
+  num-input-points: 116414075
+  num-input-cells: 693467546
+  dataset-memory-used: 33685912
+  experiments:
+    - algorithm-name: P-Classifier
+      hash-name: None
+      full-name: P-Classifier None
+      num-output-points: 1979239
+      num-output-cells: 3958470
+      first-run-time: 235.566
+      trials:
+        - trial-index: 0
+          seconds-total: 233.694
+        - trial-index: 1
+          seconds-total: 233.756
+        - trial-index: 2
+          seconds-total: 233.734
+        - trial-index: 3
+          seconds-total: 233.6
+        - trial-index: 4
+          seconds-total: 233.756
+        - trial-index: 5
+          seconds-total: 233.748
+        - trial-index: 6
+          seconds-total: 233.646
+        - trial-index: 7
+          seconds-total: 233.746
+        - trial-index: 8
+          seconds-total: 233.727
+        - trial-index: 9
+          seconds-total: 233.72
+    - algorithm-name: P-Hash
+      hash-name: MinPointID
+      full-name: P-Hash MinPointID
+      num-output-points: 1979239
+      num-output-cells: 3958470
+      first-run-time: 126.6
+      trials:
+        - trial-index: 0
+          seconds-total: 125.025
+        - trial-index: 1
+          seconds-total: 124.491
+        - trial-index: 2
+          seconds-total: 124.851
+        - trial-index: 3
+          seconds-total: 124.341
+        - trial-index: 4
+          seconds-total: 124.861
+        - trial-index: 5
+          seconds-total: 124.371
+        - trial-index: 6
+          seconds-total: 124.807
+        - trial-index: 7
+          seconds-total: 124.659
+        - trial-index: 8
+          seconds-total: 124.707
+        - trial-index: 9
+          seconds-total: 124.838
+    - algorithm-name: P-Hash-Sort
+      hash-name: FNV1A
+      full-name: P-Hash-Sort FNV1A
+      num-output-points: 1979239
+      num-output-cells: 3958470
+      first-run-time: 530.416
+      trials:
+        - trial-index: 0
+          seconds-num-faces-per-cell: 0.710868
+          seconds-face-input-count: 9.27177
+          seconds-face-hash: 32.3205
+          seconds-keys-build-arrays: 95.1546
+          seconds-face-count: 379.335
+          seconds-face-output-count: 5.08494
+          seconds-points-per-face: 1.48841
+          seconds-face-point-count: 0.00638959
+          seconds-build-connectivity: 1.98139
+          seconds-clean-grid: 1.17284
+          seconds-total: 528.938
+        - trial-index: 1
+          seconds-num-faces-per-cell: 0.713435
+          seconds-face-input-count: 9.2777
+          seconds-face-hash: 32.3067
+          seconds-keys-build-arrays: 95.2947
+          seconds-face-count: 379.831
+          seconds-face-output-count: 5.07309
+          seconds-points-per-face: 1.47429
+          seconds-face-point-count: 0.00616697
+          seconds-build-connectivity: 1.9715
+          seconds-clean-grid: 1.19087
+          seconds-total: 529.554
+        - trial-index: 2
+          seconds-num-faces-per-cell: 0.710899
+          seconds-face-input-count: 9.27218
+          seconds-face-hash: 32.3015
+          seconds-keys-build-arrays: 95.3229
+          seconds-face-count: 379.724
+          seconds-face-output-count: 5.08363
+          seconds-points-per-face: 1.4904
+          seconds-face-point-count: 0.00619869
+          seconds-build-connectivity: 1.97362
+          seconds-clean-grid: 1.18972
+          seconds-total: 529.501
+        - trial-index: 3
+          seconds-num-faces-per-cell: 0.710111
+          seconds-face-input-count: 9.36846
+          seconds-face-hash: 32.2987
+          seconds-keys-build-arrays: 94.9599
+          seconds-face-count: 380.25
+          seconds-face-output-count: 5.07019
+          seconds-points-per-face: 1.48559
+          seconds-face-point-count: 0.00628287
+          seconds-build-connectivity: 1.94736
+          seconds-clean-grid: 1.18017
+          seconds-total: 529.697
+        - trial-index: 4
+          seconds-num-faces-per-cell: 0.71206
+          seconds-face-input-count: 9.27618
+          seconds-face-hash: 32.3246
+          seconds-keys-build-arrays: 95.234
+          seconds-face-count: 379.781
+          seconds-face-output-count: 5.05344
+          seconds-points-per-face: 1.48968
+          seconds-face-point-count: 0.00628952
+          seconds-build-connectivity: 1.95868
+          seconds-clean-grid: 1.17289
+          seconds-total: 529.422
+        - trial-index: 5
+          seconds-num-faces-per-cell: 0.712174
+          seconds-face-input-count: 9.27621
+          seconds-face-hash: 32.3027
+          seconds-keys-build-arrays: 95.1956
+          seconds-face-count: 379.675
+          seconds-face-output-count: 5.07536
+          seconds-points-per-face: 1.49559
+          seconds-face-point-count: 0.00621922
+          seconds-build-connectivity: 1.97727
+          seconds-clean-grid: 1.19157
+          seconds-total: 529.326
+        - trial-index: 6
+          seconds-num-faces-per-cell: 0.713589
+          seconds-face-input-count: 9.27465
+          seconds-face-hash: 32.3092
+          seconds-keys-build-arrays: 95.2014
+          seconds-face-count: 379.595
+          seconds-face-output-count: 5.10223
+          seconds-points-per-face: 1.4799
+          seconds-face-point-count: 0.0100527
+          seconds-build-connectivity: 1.94847
+          seconds-clean-grid: 1.18663
+          seconds-total: 529.242
+        - trial-index: 7
+          seconds-num-faces-per-cell: 0.710487
+          seconds-face-input-count: 9.30734
+          seconds-face-hash: 32.3272
+          seconds-keys-build-arrays: 95.1965
+          seconds-face-count: 379.142
+          seconds-face-output-count: 5.07471
+          seconds-points-per-face: 1.49708
+          seconds-face-point-count: 0.0344175
+          seconds-build-connectivity: 1.94946
+          seconds-clean-grid: 1.33593
+          seconds-total: 529.023
+        - trial-index: 8
+          seconds-num-faces-per-cell: 0.710478
+          seconds-face-input-count: 9.26478
+          seconds-face-hash: 32.2767
+          seconds-keys-build-arrays: 95.7875
+          seconds-face-count: 379.064
+          seconds-face-output-count: 5.06845
+          seconds-points-per-face: 1.48944
+          seconds-face-point-count: 0.00619171
+          seconds-build-connectivity: 1.95227
+          seconds-clean-grid: 1.18712
+          seconds-total: 529.221
+        - trial-index: 9
+          seconds-num-faces-per-cell: 0.710062
+          seconds-face-input-count: 9.25799
+          seconds-face-hash: 32.255
+          seconds-keys-build-arrays: 96.0821
+          seconds-face-count: 379.844
+          seconds-face-output-count: 5.06198
+          seconds-points-per-face: 1.48639
+          seconds-face-point-count: 0.00630637
+          seconds-build-connectivity: 1.95575
+          seconds-clean-grid: 1.18687
+          seconds-total: 530.274
+    - algorithm-name: P-Hash-Sort
+      hash-name: MinPointID
+      full-name: P-Hash-Sort MinPointID
+      num-output-points: 1979239
+      num-output-cells: 3958470
+      first-run-time: 246.016
+      trials:
+        - trial-index: 0
+          seconds-num-faces-per-cell: 0.709116
+          seconds-face-input-count: 9.2581
+          seconds-face-hash: 17.1392
+          seconds-keys-build-arrays: 82.3229
+          seconds-face-count: 123.26
+          seconds-face-output-count: 0.72488
+          seconds-points-per-face: 4.91391
+          seconds-face-point-count: 0.0146987
+          seconds-build-connectivity: 5.02348
+          seconds-clean-grid: 1.16574
+          seconds-total: 246.637
+        - trial-index: 1
+          seconds-num-faces-per-cell: 0.711095
+          seconds-face-input-count: 9.2593
+          seconds-face-hash: 17.1465
+          seconds-keys-build-arrays: 82.3061
+          seconds-face-count: 123.204
+          seconds-face-output-count: 0.713056
+          seconds-points-per-face: 4.86516
+          seconds-face-point-count: 0.00618508
+          seconds-build-connectivity: 5.02306
+          seconds-clean-grid: 1.15967
+          seconds-total: 246.502
+        - trial-index: 2
+          seconds-num-faces-per-cell: 0.7127
+          seconds-face-input-count: 9.2715
+          seconds-face-hash: 17.1479
+          seconds-keys-build-arrays: 82.3217
+          seconds-face-count: 123.252
+          seconds-face-output-count: 0.71463
+          seconds-points-per-face: 4.86409
+          seconds-face-point-count: 0.00618544
+          seconds-build-connectivity: 5.01637
+          seconds-clean-grid: 1.17474
+          seconds-total: 246.59
+        - trial-index: 3
+          seconds-num-faces-per-cell: 0.711617
+          seconds-face-input-count: 9.37999
+          seconds-face-hash: 17.1479
+          seconds-keys-build-arrays: 82.0288
+          seconds-face-count: 122.976
+          seconds-face-output-count: 0.716611
+          seconds-points-per-face: 4.87218
+          seconds-face-point-count: 0.00623453
+          seconds-build-connectivity: 5.05944
+          seconds-clean-grid: 1.16465
+          seconds-total: 246.193
+        - trial-index: 4
+          seconds-num-faces-per-cell: 0.711177
+          seconds-face-input-count: 9.26021
+          seconds-face-hash: 17.1462
+          seconds-keys-build-arrays: 82.4131
+          seconds-face-count: 123.183
+          seconds-face-output-count: 0.71195
+          seconds-points-per-face: 4.8756
+          seconds-face-point-count: 0.00617945
+          seconds-build-connectivity: 5.04897
+          seconds-clean-grid: 1.16877
+          seconds-total: 246.634
+        - trial-index: 5
+          seconds-num-faces-per-cell: 0.7122
+          seconds-face-input-count: 9.37285
+          seconds-face-hash: 17.1509
+          seconds-keys-build-arrays: 82.0407
+          seconds-face-count: 123.02
+          seconds-face-output-count: 0.712012
+          seconds-points-per-face: 4.89748
+          seconds-face-point-count: 0.00622195
+          seconds-build-connectivity: 5.05193
+          seconds-clean-grid: 1.17154
+          seconds-total: 246.258
+        - trial-index: 6
+          seconds-num-faces-per-cell: 0.711341
+          seconds-face-input-count: 9.25635
+          seconds-face-hash: 17.146
+          seconds-keys-build-arrays: 82.272
+          seconds-face-count: 123.213
+          seconds-face-output-count: 0.712167
+          seconds-points-per-face: 4.86563
+          seconds-face-point-count: 0.00617424
+          seconds-build-connectivity: 4.99042
+          seconds-clean-grid: 1.16646
+          seconds-total: 246.447
+        - trial-index: 7
+          seconds-num-faces-per-cell: 0.713095
+          seconds-face-input-count: 9.30204
+          seconds-face-hash: 17.1726
+          seconds-keys-build-arrays: 82.8471
+          seconds-face-count: 123.184
+          seconds-face-output-count: 0.712316
+          seconds-points-per-face: 4.86548
+          seconds-face-point-count: 0.00613575
+          seconds-build-connectivity: 5.01671
+          seconds-clean-grid: 1.14963
+          seconds-total: 247.079
+        - trial-index: 8
+          seconds-num-faces-per-cell: 0.711293
+          seconds-face-input-count: 9.38667
+          seconds-face-hash: 17.1629
+          seconds-keys-build-arrays: 82.3381
+          seconds-face-count: 123.258
+          seconds-face-output-count: 0.802447
+          seconds-points-per-face: 4.86689
+          seconds-face-point-count: 0.0381382
+          seconds-build-connectivity: 5.0266
+          seconds-clean-grid: 1.18372
+          seconds-total: 246.895
+        - trial-index: 9
+          seconds-num-faces-per-cell: 0.712948
+          seconds-face-input-count: 9.25619
+          seconds-face-hash: 17.15
+          seconds-keys-build-arrays: 82.2854
+          seconds-face-count: 123.19
+          seconds-face-output-count: 0.712202
+          seconds-points-per-face: 4.86786
+          seconds-face-point-count: 0.0062451
+          seconds-build-connectivity: 4.99397
+          seconds-clean-grid: 1.17086
+          seconds-total: 246.457
+    - algorithm-name: P-Hash-Fight
+      hash-name: FNV1A
+      full-name: P-Hash-Fight FNV1A
+      num-output-points: 1979239
+      num-output-cells: 3958470
+      first-run-time: 565.764
+      trials:
+        - trial-index: 0
+          seconds-num-faces-per-cell: 0.706554
+          seconds-face-input-count: 9.31458
+          seconds-face-hash: 32.0472
+          seconds-hash-fight-iterations: 513.73
+          seconds-face-output-count: 0.0134975
+          seconds-face-point-count: 0.0160937
+          seconds-build-connectivity: 0.0963767
+          seconds-clean-grid: 1.17258
+          seconds-total: 565.626
+        - trial-index: 1
+          seconds-num-faces-per-cell: 0.703787
+          seconds-face-input-count: 9.39756
+          seconds-face-hash: 32.0341
+          seconds-hash-fight-iterations: 513.729
+          seconds-face-output-count: 0.0136604
+          seconds-face-point-count: 0.0150625
+          seconds-build-connectivity: 0.096608
+          seconds-clean-grid: 1.16682
+          seconds-total: 565.684
+        - trial-index: 2
+          seconds-num-faces-per-cell: 0.704233
+          seconds-face-input-count: 9.27503
+          seconds-face-hash: 32.0352
+          seconds-hash-fight-iterations: 513.246
+          seconds-face-output-count: 0.0135434
+          seconds-face-point-count: 0.00643034
+          seconds-build-connectivity: 0.0931248
+          seconds-clean-grid: 1.15825
+          seconds-total: 565.044
+        - trial-index: 3
+          seconds-num-faces-per-cell: 0.704194
+          seconds-face-input-count: 9.2662
+          seconds-face-hash: 32.0332
+          seconds-hash-fight-iterations: 513.564
+          seconds-face-output-count: 0.0135467
+          seconds-face-point-count: 0.0200695
+          seconds-build-connectivity: 0.0977805
+          seconds-clean-grid: 1.15972
+          seconds-total: 565.48
+        - trial-index: 4
+          seconds-num-faces-per-cell: 0.705466
+          seconds-face-input-count: 9.39115
+          seconds-face-hash: 32.0359
+          seconds-hash-fight-iterations: 513.835
+          seconds-face-output-count: 0.0135689
+          seconds-face-point-count: 0.0180797
+          seconds-build-connectivity: 0.0963658
+          seconds-clean-grid: 1.17037
+          seconds-total: 565.795
+        - trial-index: 5
+          seconds-num-faces-per-cell: 0.70797
+          seconds-face-input-count: 9.27933
+          seconds-face-hash: 32.0461
+          seconds-hash-fight-iterations: 513.671
+          seconds-face-output-count: 0.0135678
+          seconds-face-point-count: 0.0372613
+          seconds-build-connectivity: 0.0930921
+          seconds-clean-grid: 1.20749
+          seconds-total: 565.697
+        - trial-index: 6
+          seconds-num-faces-per-cell: 0.706659
+          seconds-face-input-count: 9.27115
+          seconds-face-hash: 32.0275
+          seconds-hash-fight-iterations: 513.899
+          seconds-face-output-count: 0.0149649
+          seconds-face-point-count: 0.0360026
+          seconds-build-connectivity: 0.0773874
+          seconds-clean-grid: 1.32083
+          seconds-total: 565.984
+        - trial-index: 7
+          seconds-num-faces-per-cell: 0.705568
+          seconds-face-input-count: 9.29021
+          seconds-face-hash: 32.0946
+          seconds-hash-fight-iterations: 513.819
+          seconds-face-output-count: 0.01362
+          seconds-face-point-count: 0.00621429
+          seconds-build-connectivity: 0.0691508
+          seconds-clean-grid: 1.15767
+          seconds-total: 565.677
+        - trial-index: 8
+          seconds-num-faces-per-cell: 0.703887
+          seconds-face-input-count: 9.37727
+          seconds-face-hash: 32.0543
+          seconds-hash-fight-iterations: 513.688
+          seconds-face-output-count: 0.0135943
+          seconds-face-point-count: 0.00624938
+          seconds-build-connectivity: 0.0687033
+          seconds-clean-grid: 1.15119
+          seconds-total: 565.597
+        - trial-index: 9
+          seconds-num-faces-per-cell: 0.704971
+          seconds-face-input-count: 9.38398
+          seconds-face-hash: 32.0476
+          seconds-hash-fight-iterations: 513.804
+          seconds-face-output-count: 0.013524
+          seconds-face-point-count: 0.0142873
+          seconds-build-connectivity: 0.093713
+          seconds-clean-grid: 1.17502
+          seconds-total: 565.771
+    - algorithm-name: P-Hash-Fight
+      hash-name: MinPointID
+      full-name: P-Hash-Fight MinPointID
+      num-output-points: 1979239
+      num-output-cells: 3958470
+      first-run-time: 677.143
+      trials:
+        - trial-index: 0
+          seconds-num-faces-per-cell: 0.70266
+          seconds-face-input-count: 9.25783
+          seconds-face-hash: 17.1977
+          seconds-hash-fight-iterations: 639.346
+          seconds-face-output-count: 0.0137685
+          seconds-face-point-count: 0.00624603
+          seconds-build-connectivity: 0.0877598
+          seconds-clean-grid: 1.15321
+          seconds-total: 676.287
+        - trial-index: 1
+          seconds-num-faces-per-cell: 0.700916
+          seconds-face-input-count: 9.2626
+          seconds-face-hash: 17.1928
+          seconds-hash-fight-iterations: 639.438
+          seconds-face-output-count: 0.013593
+          seconds-face-point-count: 0.0383308
+          seconds-build-connectivity: 0.0903015
+          seconds-clean-grid: 1.21218
+          seconds-total: 676.562
+        - trial-index: 2
+          seconds-num-faces-per-cell: 0.702487
+          seconds-face-input-count: 9.27868
+          seconds-face-hash: 17.1919
+          seconds-hash-fight-iterations: 639.562
+          seconds-face-output-count: 0.0136046
+          seconds-face-point-count: 0.00788545
+          seconds-build-connectivity: 0.0896368
+          seconds-clean-grid: 1.33904
+          seconds-total: 676.813
+        - trial-index: 3
+          seconds-num-faces-per-cell: 0.702419
+          seconds-face-input-count: 9.28645
+          seconds-face-hash: 17.2061
+          seconds-hash-fight-iterations: 639.472
+          seconds-face-output-count: 0.0132517
+          seconds-face-point-count: 0.0209301
+          seconds-build-connectivity: 0.0950693
+          seconds-clean-grid: 1.16557
+          seconds-total: 676.594
+        - trial-index: 4
+          seconds-num-faces-per-cell: 0.697174
+          seconds-face-input-count: 9.26091
+          seconds-face-hash: 17.1847
+          seconds-hash-fight-iterations: 639.725
+          seconds-face-output-count: 0.013302
+          seconds-face-point-count: 0.0179073
+          seconds-build-connectivity: 0.0940152
+          seconds-clean-grid: 1.15599
+          seconds-total: 676.661
+        - trial-index: 5
+          seconds-num-faces-per-cell: 0.697918
+          seconds-face-input-count: 9.27559
+          seconds-face-hash: 17.1787
+          seconds-hash-fight-iterations: 639.873
+          seconds-face-output-count: 0.015757
+          seconds-face-point-count: 0.0485465
+          seconds-build-connectivity: 0.0951278
+          seconds-clean-grid: 1.15718
+          seconds-total: 676.973
+        - trial-index: 6
+          seconds-num-faces-per-cell: 0.699685
+          seconds-face-input-count: 9.38316
+          seconds-face-hash: 17.1843
+          seconds-hash-fight-iterations: 639.708
+          seconds-face-output-count: 0.0132599
+          seconds-face-point-count: 0.00633981
+          seconds-build-connectivity: 0.0661374
+          seconds-clean-grid: 1.1658
+          seconds-total: 676.828
+        - trial-index: 7
+          seconds-num-faces-per-cell: 0.697953
+          seconds-face-input-count: 9.39682
+          seconds-face-hash: 17.1877
+          seconds-hash-fight-iterations: 639.752
+          seconds-face-output-count: 0.0132864
+          seconds-face-point-count: 0.0485586
+          seconds-build-connectivity: 0.0938452
+          seconds-clean-grid: 1.18384
+          seconds-total: 676.908
+        - trial-index: 8
+          seconds-num-faces-per-cell: 0.698734
+          seconds-face-input-count: 9.30023
+          seconds-face-hash: 17.1818
+          seconds-hash-fight-iterations: 640.251
+          seconds-face-output-count: 0.0134741
+          seconds-face-point-count: 0.0194994
+          seconds-build-connectivity: 0.0937236
+          seconds-clean-grid: 1.33241
+          seconds-total: 677.423
+        - trial-index: 9
+          seconds-num-faces-per-cell: 0.699117
+          seconds-face-input-count: 9.26692
+          seconds-face-hash: 17.1771
+          seconds-hash-fight-iterations: 639.728
+          seconds-face-output-count: 0.0134558
+          seconds-face-point-count: 0.00622487
+          seconds-build-connectivity: 0.0876083
+          seconds-clean-grid: 1.1617
+          seconds-total: 676.745
+    - algorithm-name: P-Hash-Count
+      hash-name: FNV1A
+      full-name: P-Hash-Count FNV1A
+      num-output-points: 1979239
+      num-output-cells: 3958470
+      first-run-time: 285.68
+      trials:
+        - trial-index: 0
+          seconds-num-faces-per-cell: 0.698902
+          seconds-face-per-cell-count: 3.19932
+          seconds-face-hash: 16.8781
+          seconds-num-faces-per-hash: 24.0167
+          seconds-face-per-hash-count: 0.53567
+          seconds-build-faces-per-hash: 117.802
+          seconds-face-counts: 118.281
+          seconds-scatter-cull-internal-faces: 0.853008
+          seconds-points-per-face: 0.0964439
+          seconds-face-point-count: 0.0202044
+          seconds-build-connectivity: 0.426095
+          seconds-clean-grid: 1.17112
+          seconds-total: 286.057
+        - trial-index: 1
+          seconds-num-faces-per-cell: 0.69724
+          seconds-face-per-cell-count: 3.19652
+          seconds-face-hash: 16.8823
+          seconds-num-faces-per-hash: 24.0251
+          seconds-face-per-hash-count: 0.535361
+          seconds-build-faces-per-hash: 117.497
+          seconds-face-counts: 118.232
+          seconds-scatter-cull-internal-faces: 0.861496
+          seconds-points-per-face: 0.0965178
+          seconds-face-point-count: 0.0198756
+          seconds-build-connectivity: 0.425319
+          seconds-clean-grid: 1.16903
+          seconds-total: 285.724
+        - trial-index: 2
+          seconds-num-faces-per-cell: 0.697016
+          seconds-face-per-cell-count: 3.1985
+          seconds-face-hash: 16.8805
+          seconds-num-faces-per-hash: 23.9518
+          seconds-face-per-hash-count: 0.537898
+          seconds-build-faces-per-hash: 117.637
+          seconds-face-counts: 118.292
+          seconds-scatter-cull-internal-faces: 0.860806
+          seconds-points-per-face: 0.0964989
+          seconds-face-point-count: 0.00624482
+          seconds-build-connectivity: 0.421129
+          seconds-clean-grid: 1.16871
+          seconds-total: 285.835
+        - trial-index: 3
+          seconds-num-faces-per-cell: 0.697869
+          seconds-face-per-cell-count: 3.2014
+          seconds-face-hash: 16.8787
+          seconds-num-faces-per-hash: 24.0317
+          seconds-face-per-hash-count: 0.535644
+          seconds-build-faces-per-hash: 117.651
+          seconds-face-counts: 118.348
+          seconds-scatter-cull-internal-faces: 0.8589
+          seconds-points-per-face: 0.0964302
+          seconds-face-point-count: 0.00626834
+          seconds-build-connectivity: 0.398545
+          seconds-clean-grid: 1.17805
+          seconds-total: 285.97
+        - trial-index: 4
+          seconds-num-faces-per-cell: 0.695948
+          seconds-face-per-cell-count: 3.20003
+          seconds-face-hash: 16.8806
+          seconds-num-faces-per-hash: 24.0267
+          seconds-face-per-hash-count: 0.534776
+          seconds-build-faces-per-hash: 117.713
+          seconds-face-counts: 118.218
+          seconds-scatter-cull-internal-faces: 0.844089
+          seconds-points-per-face: 0.0964916
+          seconds-face-point-count: 0.00627289
+          seconds-build-connectivity: 0.398514
+          seconds-clean-grid: 1.15407
+          seconds-total: 285.855
+        - trial-index: 5
+          seconds-num-faces-per-cell: 0.695876
+          seconds-face-per-cell-count: 3.19683
+          seconds-face-hash: 16.6259
+          seconds-num-faces-per-hash: 24.0197
+          seconds-face-per-hash-count: 0.536024
+          seconds-build-faces-per-hash: 117.366
+          seconds-face-counts: 118.205
+          seconds-scatter-cull-internal-faces: 0.865823
+          seconds-points-per-face: 0.0965612
+          seconds-face-point-count: 0.0203399
+          seconds-build-connectivity: 0.42662
+          seconds-clean-grid: 1.17517
+          seconds-total: 285.314
+        - trial-index: 6
+          seconds-num-faces-per-cell: 0.698616
+          seconds-face-per-cell-count: 3.19683
+          seconds-face-hash: 16.6284
+          seconds-num-faces-per-hash: 23.9468
+          seconds-face-per-hash-count: 0.538321
+          seconds-build-faces-per-hash: 117.649
+          seconds-face-counts: 118.272
+          seconds-scatter-cull-internal-faces: 0.858855
+          seconds-points-per-face: 0.0964833
+          seconds-face-point-count: 0.00615905
+          seconds-build-connectivity: 0.421229
+          seconds-clean-grid: 1.16145
+          seconds-total: 285.561
+        - trial-index: 7
+          seconds-num-faces-per-cell: 0.697915
+          seconds-face-per-cell-count: 3.19568
+          seconds-face-hash: 16.6286
+          seconds-num-faces-per-hash: 24.0162
+          seconds-face-per-hash-count: 0.53469
+          seconds-build-faces-per-hash: 117.451
+          seconds-face-counts: 118.326
+          seconds-scatter-cull-internal-faces: 0.911857
+          seconds-points-per-face: 0.0964555
+          seconds-face-point-count: 0.0520618
+          seconds-build-connectivity: 0.426284
+          seconds-clean-grid: 1.19005
+          seconds-total: 285.609
+        - trial-index: 8
+          seconds-num-faces-per-cell: 0.697313
+          seconds-face-per-cell-count: 3.19783
+          seconds-face-hash: 16.6289
+          seconds-num-faces-per-hash: 24.0252
+          seconds-face-per-hash-count: 0.53511
+          seconds-build-faces-per-hash: 117.505
+          seconds-face-counts: 118.216
+          seconds-scatter-cull-internal-faces: 0.851494
+          seconds-points-per-face: 0.0964675
+          seconds-face-point-count: 0.0202703
+          seconds-build-connectivity: 0.426478
+          seconds-clean-grid: 1.16876
+          seconds-total: 285.448
+        - trial-index: 9
+          seconds-num-faces-per-cell: 0.698581
+          seconds-face-per-cell-count: 3.19736
+          seconds-face-hash: 16.6293
+          seconds-num-faces-per-hash: 24.0239
+          seconds-face-per-hash-count: 0.53553
+          seconds-build-faces-per-hash: 117.532
+          seconds-face-counts: 118.303
+          seconds-scatter-cull-internal-faces: 0.850791
+          seconds-points-per-face: 0.0964844
+          seconds-face-point-count: 0.0145254
+          seconds-build-connectivity: 0.420782
+          seconds-clean-grid: 1.18438
+          seconds-total: 285.565
+    - algorithm-name: P-Hash-Count
+      hash-name: MinPointID
+      full-name: P-Hash-Count MinPointID
+      num-output-points: 1979239
+      num-output-cells: 3958470
+      first-run-time: 73.2638
+      trials:
+        - trial-index: 0
+          seconds-num-faces-per-cell: 0.708229
+          seconds-face-per-cell-count: 3.19765
+          seconds-face-hash: 7.83142
+          seconds-num-faces-per-hash: 6.96878
+          seconds-face-per-hash-count: 0.537602
+          seconds-build-faces-per-hash: 17.6734
+          seconds-face-counts: 33.2158
+          seconds-scatter-cull-internal-faces: 0.735859
+          seconds-points-per-face: 0.0303433
+          seconds-face-point-count: 0.020578
+          seconds-build-connectivity: 0.149493
+          seconds-clean-grid: 1.30898
+          seconds-total: 73.4404
+        - trial-index: 1
+          seconds-num-faces-per-cell: 0.707673
+          seconds-face-per-cell-count: 3.20077
+          seconds-face-hash: 7.8272
+          seconds-num-faces-per-hash: 6.95149
+          seconds-face-per-hash-count: 0.53349
+          seconds-build-faces-per-hash: 17.6381
+          seconds-face-counts: 33.2159
+          seconds-scatter-cull-internal-faces: 0.725557
+          seconds-points-per-face: 0.0300194
+          seconds-face-point-count: 0.0134552
+          seconds-build-connectivity: 0.150985
+          seconds-clean-grid: 1.1536
+          seconds-total: 73.2085
+        - trial-index: 2
+          seconds-num-faces-per-cell: 0.708528
+          seconds-face-per-cell-count: 3.19761
+          seconds-face-hash: 7.82823
+          seconds-num-faces-per-hash: 6.99313
+          seconds-face-per-hash-count: 0.535215
+          seconds-build-faces-per-hash: 17.677
+          seconds-face-counts: 33.2145
+          seconds-scatter-cull-internal-faces: 0.724742
+          seconds-points-per-face: 0.0304128
+          seconds-face-point-count: 0.0205625
+          seconds-build-connectivity: 0.152161
+          seconds-clean-grid: 1.14569
+          seconds-total: 73.2908
+        - trial-index: 3
+          seconds-num-faces-per-cell: 0.706877
+          seconds-face-per-cell-count: 3.20023
+          seconds-face-hash: 7.82652
+          seconds-num-faces-per-hash: 6.95196
+          seconds-face-per-hash-count: 0.534433
+          seconds-build-faces-per-hash: 17.6391
+          seconds-face-counts: 33.2333
+          seconds-scatter-cull-internal-faces: 0.726072
+          seconds-points-per-face: 0.0301565
+          seconds-face-point-count: 0.0202708
+          seconds-build-connectivity: 0.152602
+          seconds-clean-grid: 1.14681
+          seconds-total: 73.2305
+        - trial-index: 4
+          seconds-num-faces-per-cell: 0.707659
+          seconds-face-per-cell-count: 3.19907
+          seconds-face-hash: 7.82614
+          seconds-num-faces-per-hash: 6.95123
+          seconds-face-per-hash-count: 0.534605
+          seconds-build-faces-per-hash: 17.638
+          seconds-face-counts: 33.2174
+          seconds-scatter-cull-internal-faces: 0.726394
+          seconds-points-per-face: 0.0305716
+          seconds-face-point-count: 0.020773
+          seconds-build-connectivity: 0.150992
+          seconds-clean-grid: 1.14569
+          seconds-total: 73.2099
+        - trial-index: 5
+          seconds-num-faces-per-cell: 0.707302
+          seconds-face-per-cell-count: 3.20044
+          seconds-face-hash: 7.82888
+          seconds-num-faces-per-hash: 6.95145
+          seconds-face-per-hash-count: 0.534813
+          seconds-build-faces-per-hash: 17.6371
+          seconds-face-counts: 33.2139
+          seconds-scatter-cull-internal-faces: 0.72317
+          seconds-points-per-face: 0.0306163
+          seconds-face-point-count: 0.0128453
+          seconds-build-connectivity: 0.144835
+          seconds-clean-grid: 1.15014
+          seconds-total: 73.1969
+        - trial-index: 6
+          seconds-num-faces-per-cell: 0.70652
+          seconds-face-per-cell-count: 3.19534
+          seconds-face-hash: 7.82174
+          seconds-num-faces-per-hash: 6.95145
+          seconds-face-per-hash-count: 0.535809
+          seconds-build-faces-per-hash: 17.6765
+          seconds-face-counts: 33.2131
+          seconds-scatter-cull-internal-faces: 0.724167
+          seconds-points-per-face: 0.0304404
+          seconds-face-point-count: 0.00617339
+          seconds-build-connectivity: 0.143899
+          seconds-clean-grid: 1.13411
+          seconds-total: 73.1977
+        - trial-index: 7
+          seconds-num-faces-per-cell: 0.705572
+          seconds-face-per-cell-count: 3.19967
+          seconds-face-hash: 7.82604
+          seconds-num-faces-per-hash: 6.95232
+          seconds-face-per-hash-count: 0.534666
+          seconds-build-faces-per-hash: 17.6384
+          seconds-face-counts: 33.2153
+          seconds-scatter-cull-internal-faces: 0.719652
+          seconds-points-per-face: 0.0307105
+          seconds-face-point-count: 0.00613217
+          seconds-build-connectivity: 0.12164
+          seconds-clean-grid: 1.14651
+          seconds-total: 73.1566
+        - trial-index: 8
+          seconds-num-faces-per-cell: 0.706082
+          seconds-face-per-cell-count: 3.19722
+          seconds-face-hash: 7.82116
+          seconds-num-faces-per-hash: 6.99373
+          seconds-face-per-hash-count: 0.535199
+          seconds-build-faces-per-hash: 17.6677
+          seconds-face-counts: 33.2365
+          seconds-scatter-cull-internal-faces: 0.718757
+          seconds-points-per-face: 0.0318734
+          seconds-face-point-count: 0.00623644
+          seconds-build-connectivity: 0.123075
+          seconds-clean-grid: 1.12572
+          seconds-total: 73.2216
+        - trial-index: 9
+          seconds-num-faces-per-cell: 0.705281
+          seconds-face-per-cell-count: 3.19642
+          seconds-face-hash: 7.8289
+          seconds-num-faces-per-hash: 6.95198
+          seconds-face-per-hash-count: 0.53553
+          seconds-build-faces-per-hash: 17.6903
+          seconds-face-counts: 33.3546
+          seconds-scatter-cull-internal-faces: 0.726529
+          seconds-points-per-face: 0.0311343
+          seconds-face-point-count: 0.0271922
+          seconds-build-connectivity: 0.130586
+          seconds-clean-grid: 1.1553
+          seconds-total: 73.4261

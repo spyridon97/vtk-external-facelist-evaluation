@@ -1,0 +1,29 @@
+- vtk-version: 9.4.0
+  vtkm-version: 2.2.0-8-ga2784a96f
+  hostname: frontier10493
+  date: 2024-12-10T16:08:05-0500
+  device: TBB
+  num-threads: 1
+  input-file: /ccs/home/spyridon97/Data/F-15-tet.vtu
+  topology-connections: regular
+  num-input-points: 116414075
+  num-input-cells: 693467546
+  dataset-memory-used: 33686452
+  experiments:
+    - algorithm-name: P-Hash-Fight
+      hash-name: MinPointID
+      full-name: P-Hash-Fight MinPointID
+      num-output-points: 1979239
+      num-output-cells: 3958470
+      first-run-time: 684.516
+
+ Performance counter stats for '/lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation -i /ccs/home/spyridon97/Data/F-15-tet.vtu -d TBB -t 1 --p-hash-fight -f 2 -n 0':
+
+    15,273,169,840      cache-misses                                                       
+
+     938.568965589 seconds time elapsed
+
+     751.147050000 seconds user
+      63.310720000 seconds sys
+
+
