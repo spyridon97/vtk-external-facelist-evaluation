@@ -1,0 +1,23 @@
+- vtk-version: 9.4.0
+  vtkm-version: 2.2.0-8-ga2784a96f
+  hostname: frontier10493
+  date: 2024-12-10T14:29:07-0500
+  device: TBB
+  num-threads: 1
+  input-file: /ccs/home/spyridon97/Data/F-15.vtu
+  topology-connections: regular
+  num-input-points: 116414075
+  num-input-cells: 246056538
+  dataset-memory-used: 10967204
+  experiments:
+
+ Performance counter stats for '/lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation -i /ccs/home/spyridon97/Data/F-15.vtu -d TBB -n 0':
+
+       791,242,747      cache-misses                                                       
+
+     182.072543349 seconds time elapsed
+
+      66.920525000 seconds user
+      15.480022000 seconds sys
+
+
