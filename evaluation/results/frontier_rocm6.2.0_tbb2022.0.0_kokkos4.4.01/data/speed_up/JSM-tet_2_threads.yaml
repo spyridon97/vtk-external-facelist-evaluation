@@ -64,9 +64,9 @@
           seconds-total: 33.0804
         - trial-index: 9
           seconds-total: 33.1545
-    - algorithm-name: P-Hash-Sort
+    - algorithm-name: DP-Hash-Sort
       hash-name: FNV1A
-      full-name: P-Hash-Sort FNV1A
+      full-name: DP-Hash-Sort FNV1A
       num-output-points: 869311
       num-output-cells: 1738674
       first-run-time: 115.118
@@ -191,9 +191,9 @@
           seconds-build-connectivity: 0.36961
           seconds-clean-grid: 0.311923
           seconds-total: 115.152
-    - algorithm-name: P-Hash-Sort
+    - algorithm-name: DP-Hash-Sort
       hash-name: MinPointID
-      full-name: P-Hash-Sort MinPointID
+      full-name: DP-Hash-Sort MinPointID
       num-output-points: 869311
       num-output-cells: 1738674
       first-run-time: 66.0349
@@ -318,9 +318,9 @@
           seconds-build-connectivity: 0.911871
           seconds-clean-grid: 0.303055
           seconds-total: 66.0066
-    - algorithm-name: P-Hash-Fight
+    - algorithm-name: DP-Hash-Fight
       hash-name: FNV1A
-      full-name: P-Hash-Fight FNV1A
+      full-name: DP-Hash-Fight FNV1A
       num-output-points: 869311
       num-output-cells: 1738674
       first-run-time: 115.518
@@ -425,9 +425,9 @@
           seconds-build-connectivity: 0.0186097
           seconds-clean-grid: 0.31058
           seconds-total: 115.595
-    - algorithm-name: P-Hash-Fight
+    - algorithm-name: DP-Hash-Fight
       hash-name: MinPointID
-      full-name: P-Hash-Fight MinPointID
+      full-name: DP-Hash-Fight MinPointID
       num-output-points: 869311
       num-output-cells: 1738674
       first-run-time: 182.38
@@ -532,9 +532,9 @@
           seconds-build-connectivity: 0.0147013
           seconds-clean-grid: 0.302458
           seconds-total: 182.396
-    - algorithm-name: P-Hash-Count
+    - algorithm-name: DP-Hash-Count
       hash-name: FNV1A
-      full-name: P-Hash-Count FNV1A
+      full-name: DP-Hash-Count FNV1A
       num-output-points: 869311
       num-output-cells: 1738674
       first-run-time: 58.2975
@@ -679,9 +679,9 @@
           seconds-build-connectivity: 0.0937872
           seconds-clean-grid: 0.314938
           seconds-total: 58.1851
-    - algorithm-name: P-Hash-Count
+    - algorithm-name: DP-Hash-Count
       hash-name: MinPointID
-      full-name: P-Hash-Count MinPointID
+      full-name: DP-Hash-Count MinPointID
       num-output-points: 869311
       num-output-cells: 1738674
       first-run-time: 19.0065

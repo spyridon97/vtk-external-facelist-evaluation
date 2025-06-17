@@ -69,4 +69,15 @@ if method == 0 or method == 5:
                     f"{executable} -i {dataset} -d KOKKOS -t {max_number_of_threads} {algo} -f {hash_function} -n {iterations} -r -s {random_seed}",
                     f"{data_gpu_time_dir}/{get_dataset_name(dataset)}_{algorithms_names[algo]}-{hash_function_names[hash_function]}_random_{random_seed}.yaml")
 
+if method == 0 or method == 6:
+    for dirpath, dirnames, filenames in os.walk(figures_dir, topdown=False):
+        # Rename files
+        for name in filenames:
+            if 'P-Hash-Count' in name:
+                old_path = os.path.join(dirpath, name)
+                new_name = name.replace('P-Hash-Count', 'DP-Hash-Count')
+                new_path = os.path.join(dirpath, new_name)
+                print(f"Renaming file: {old_path} -> {new_path}")
+                os.rename(old_path, new_path)
+
 print(f"All evaluations completed. Check results in {results_dir}/.")

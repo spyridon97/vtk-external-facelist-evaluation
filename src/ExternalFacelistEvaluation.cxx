@@ -422,43 +422,43 @@ auto main(int argc, char** argv) -> int
       "P-Hash", "MinPointID", args.NumberOfTrials, vtkInputData, log);
   }
 
-  if (args.PHashSort)
+  if (args.DPHashSort)
   {
     if (args.HashFunction == 0 || args.HashFunction == 1)
     {
       DoVTKmRun<vtkm::worklet::ExternalFacesHashSortFnv1a>(
-        "P-Hash-Sort", "FNV1A", args.NumberOfTrials, vtkmInputData, log);
+        "DP-Hash-Sort", "FNV1A", args.NumberOfTrials, vtkmInputData, log);
     }
     if (args.HashFunction == 0 || args.HashFunction == 2)
     {
       DoVTKmRun<vtkm::worklet::ExternalFacesHashSortMinPointId>(
-        "P-Hash-Sort", "MinPointID", args.NumberOfTrials, vtkmInputData, log);
+        "DP-Hash-Sort", "MinPointID", args.NumberOfTrials, vtkmInputData, log);
     }
   }
-  if (args.PHashFight)
+  if (args.DPHashFight)
   {
     if (args.HashFunction == 0 || args.HashFunction == 1)
     {
       DoVTKmRun<vtkm::worklet::ExternalFacesHashFightFnv1a>(
-        "P-Hash-Fight", "FNV1A", args.NumberOfTrials, vtkmInputData, log);
+        "DP-Hash-Fight", "FNV1A", args.NumberOfTrials, vtkmInputData, log);
     }
     if (args.HashFunction == 0 || args.HashFunction == 2)
     {
       DoVTKmRun<vtkm::worklet::ExternalFacesHashFightMinPointId>(
-        "P-Hash-Fight", "MinPointID", args.NumberOfTrials, vtkmInputData, log);
+        "DP-Hash-Fight", "MinPointID", args.NumberOfTrials, vtkmInputData, log);
     }
   }
-  if (args.PHashCount)
+  if (args.DPHashCount)
   {
     if (args.HashFunction == 0 || args.HashFunction == 1)
     {
       DoVTKmRun<vtkm::worklet::ExternalFacesHashCountFnv1a>(
-        "P-Hash-Count", "FNV1A", args.NumberOfTrials, vtkmInputData, log);
+        "DP-Hash-Count", "FNV1A", args.NumberOfTrials, vtkmInputData, log);
     }
     if (args.HashFunction == 0 || args.HashFunction == 2)
     {
       DoVTKmRun<vtkm::worklet::ExternalFacesHashCountMinPointId>(
-        "P-Hash-Count", "MinPointID", args.NumberOfTrials, vtkmInputData, log);
+        "DP-Hash-Count", "MinPointID", args.NumberOfTrials, vtkmInputData, log);
     }
   }
   log.EndBlock();

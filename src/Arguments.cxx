@@ -84,11 +84,11 @@ void Arguments::ParseArguments(int argc, char** argv)
 
   app->add_flag("--p-hash", this->PHash, "Run the P-Hash algorithm");
 
-  app->add_flag("--p-hash-fight", this->PHashFight, "Run the P-HashFight algorithm");
+  app->add_flag("--dp-hash-fight", this->DPHashFight, "Run the DP-Hash-Fight algorithm");
 
-  app->add_flag("--p-hash-sort", this->PHashSort, "Run the P-Hash-Sort algorithm");
+  app->add_flag("--dp-hash-sort", this->DPHashSort, "Run the DP-Hash-Sort algorithm");
 
-  app->add_flag("--p-hash-count", this->PHashCount, "Run the P-Hash-Count algorithm");
+  app->add_flag("--dp-hash-count", this->DPHashCount, "Run the DP-Hash-Count algorithm");
 
   app
     ->add_option("-f,--hash-function", this->HashFunction,

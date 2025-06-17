@@ -21,9 +21,9 @@ struct Arguments
   bool SHash = false;
   bool PClassifier = false;
   bool PHash = false;
-  bool PHashFight = false;
-  bool PHashSort = false;
-  bool PHashCount = false;
+  bool DPHashFight = false;
+  bool DPHashSort = false;
+  bool DPHashCount = false;
 
   int HashFunction = 0;
 

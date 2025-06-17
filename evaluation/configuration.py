@@ -63,10 +63,10 @@ biggest_datasets = datasets[2:]
 
 # Algorithms
 algorithms_names = {"--s-classifier": "S-Classifier", "--s-hash": "S-Hash", "--p-classifier": "P-Classifier",
-                    "--p-hash": "P-Hash", "--p-hash-sort": "P-Hash-Sort", "--p-hash-fight": "P-Hash-Fight",
-                    "--p-hash-count": "P-Hash-Count"}
-algorithms = ["--s-classifier", "--s-hash", "--p-classifier", "--p-hash", "--p-hash-sort", "--p-hash-fight",
-              "--p-hash-count"]
+                    "--p-hash": "P-Hash", "--dp-hash-sort": "DP-Hash-Sort", "--dp-hash-fight": "DP-Hash-Fight",
+                    "--dp-hash-count": "DP-Hash-Count"}
+algorithms = ["--s-classifier", "--s-hash", "--p-classifier", "--p-hash", "--dp-hash-sort", "--dp-hash-fight",
+              "--dp-hash-count"]
 parallel_algorithms = algorithms[2:]
 vtk_algorithms = algorithms[:4]
 vtkm_algorithms = algorithms[4:]

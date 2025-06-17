@@ -1,0 +1,29 @@
+- vtk-version: 9.4.0
+  vtkm-version: 2.2.0-8-ga2784a96f
+  hostname: frontier10493
+  date: 2024-12-10T15:27:12-0500
+  device: TBB
+  num-threads: 1
+  input-file: /ccs/home/spyridon97/Data/JSM-tet.vtu
+  topology-connections: regular
+  num-input-points: 50429916
+  num-input-cells: 299608989
+  dataset-memory-used: 13658420
+  experiments:
+    - algorithm-name: DP-Hash-Count
+      hash-name: MinPointID
+      full-name: DP-Hash-Count MinPointID
+      num-output-points: 869311
+      num-output-cells: 1738674
+      first-run-time: 36.0545
+
+ Performance counter stats for '/lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation -i /ccs/home/spyridon97/Data/JSM-tet.vtu -d TBB -t 1 --p-hash-count -f 2 -n 0':
+
+       970,010,732      cache-misses                                                       
+
+      46.547810200 seconds time elapsed
+
+      34.606852000 seconds user
+       5.479651000 seconds sys
+
+
