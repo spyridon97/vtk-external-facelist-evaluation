@@ -28,6 +28,7 @@ datasets_dir = os.path.join(home_dir, "Data")  # Make sure this is the correct d
 results_dir = os.path.join(evaluation_dir, "results")
 # Make sure this is the correct configuration
 # configuration = "testing"
+configuration = f"frontier_rocm7.0.2_tbb2022.3.0_kokkos4.7.01"
 config_dir = os.path.join(results_dir, configuration)
 
 data_dir = os.path.join(config_dir, "data")
@@ -52,11 +53,14 @@ perf_executable = shutil.which("perf")
 cache_evaluator = f"{perf_executable} stat -e cache-misses"
 
 # Datasets # Make sure these are the correct datasets ordered from smallest to biggest
-datasets = [f"{datasets_dir}/JSM.vtu",
+datasets = [f"{datasets_dir}/Body.vtu",
+            f"{datasets_dir}/JSM.vtu",
             f"{datasets_dir}/F-15.vtu",
+            f"{datasets_dir}/Synthetic.vtu",
             f"{datasets_dir}/JSM-tet.vtu",
-            f"{datasets_dir}/F-15-tet.vtu"]
-biggest_datasets = datasets[2:]
+            f"{datasets_dir}/F-15-tet.vtu"
+            ]
+biggest_datasets = datasets[-2:]  # Last two datasets
 
 # Algorithms
 algorithms_names = {"--s-classifier": "S-Classifier", "--s-hash": "S-Hash", "--p-classifier": "P-Classifier",

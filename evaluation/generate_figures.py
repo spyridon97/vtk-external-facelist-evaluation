@@ -299,7 +299,7 @@ if method == 0 or method == 3:
             face_hash_distribution_data[dataset_name] = experiments["face-hash-distribution"]
 
     # Plot settings
-    fig, axs = plt.subplots(2, 2, figsize=(fig_width, fig_height))
+    fig, axs = plt.subplots(3, 2, figsize=(fig_width, fig_height))
     axs = axs.flatten()  # Flatten the 2D array of axes for easier indexing
 
     # Iterate over the data and plot
