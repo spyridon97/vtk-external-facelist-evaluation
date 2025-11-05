@@ -28,9 +28,6 @@ datasets_dir = os.path.join(home_dir, "Data")  # Make sure this is the correct d
 results_dir = os.path.join(evaluation_dir, "results")
 # Make sure this is the correct configuration
 # configuration = "testing"
-# configuration = f"frontier_rocm5.7.0_tbb2021.13.0_kokkos4.1.00"
-# configuration = f"frontier_rocm6.2.0_tbb2022.0.0_kokkos4.4.01"
-configuration = f"frontier_rocm6.2.4_tbb2022.0.0_kokkos4.5.00"
 config_dir = os.path.join(results_dir, configuration)
 
 data_dir = os.path.join(config_dir, "data")
