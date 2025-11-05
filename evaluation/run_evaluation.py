@@ -9,7 +9,7 @@ if method == 0 or method == 1:
             run_command(f"{memory_evaluator} {executable} -i {dataset} -d TBB -t 1 {algo} -n 0",
                         f"{data_memory_footprint_dir}/{get_dataset_name(dataset)}_{algorithms_names[algo]}.txt")
 
-        for algo in vtkm_algorithms:
+        for algo in viskores_algorithms:
             for hash_function in hash_functions[1:]:
                 run_command(f"{memory_evaluator} {executable} -i {dataset} -d TBB -t 1 {algo} -f {hash_function} -n 0",
                             f"{data_memory_footprint_dir}/{get_dataset_name(dataset)}_{algorithms_names[algo]}-{hash_function_names[hash_function]}.txt")
@@ -41,7 +41,7 @@ if method == 0 or method == 3:
         run_command(f"{cache_evaluator} {executable} -i {dataset} -d TBB -n 0",
                     f"{data_hash_performance_dir}/{get_dataset_name(dataset)}_cache_misses.txt")
         # cache misses for each algorithm with each hash function
-        for algo in vtkm_algorithms:
+        for algo in viskores_algorithms:
             for hash_function in hash_functions[1:]:
                 run_command(f"{cache_evaluator} {executable} -i {dataset} -d TBB -t 1 {algo} -f {hash_function} -n 0",
                             f"{data_hash_performance_dir}/{get_dataset_name(dataset)}_{algorithms_names[algo]}-{hash_function_names[hash_function]}_cache_misses.txt")
@@ -60,7 +60,7 @@ if method == 0 or method == 5:
     os.makedirs(data_gpu_time_dir, exist_ok=True)
     # Run the evaluation for each algorithm with each hash function, because memory allocation issues can arise
     for dataset in datasets:
-        for algo in vtkm_algorithms:
+        for algo in viskores_algorithms:
             for hash_function in hash_functions[1:]:
                 run_command(
                     f"{executable} -i {dataset} -d KOKKOS -t {max_number_of_threads} {algo} -f {hash_function} -n {iterations}",
@@ -68,16 +68,5 @@ if method == 0 or method == 5:
                 run_command(
                     f"{executable} -i {dataset} -d KOKKOS -t {max_number_of_threads} {algo} -f {hash_function} -n {iterations} -r -s {random_seed}",
                     f"{data_gpu_time_dir}/{get_dataset_name(dataset)}_{algorithms_names[algo]}-{hash_function_names[hash_function]}_random_{random_seed}.yaml")
-
-if method == 0 or method == 6:
-    for dirpath, dirnames, filenames in os.walk(figures_dir, topdown=False):
-        # Rename files
-        for name in filenames:
-            if 'P-Hash-Count' in name:
-                old_path = os.path.join(dirpath, name)
-                new_name = name.replace('P-Hash-Count', 'DP-Hash-Count')
-                new_path = os.path.join(dirpath, new_name)
-                print(f"Renaming file: {old_path} -> {new_path}")
-                os.rename(old_path, new_path)
 
 print(f"All evaluations completed. Check results in {results_dir}/.")

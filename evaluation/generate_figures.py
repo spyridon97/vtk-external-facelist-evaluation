@@ -17,7 +17,7 @@ title_fontsize = axis_label_fontsize
 
 # Set column width and spacing x-axis positions for datasets
 def get_width_and_spacing(num_algorithms):
-    max_num_algorithms = len(vtk_algorithms) + (len(hash_functions) - 1) * len(vtkm_algorithms)
+    max_num_algorithms = len(vtk_algorithms) + (len(hash_functions) - 1) * len(viskores_algorithms)
     ratio = max_num_algorithms / num_algorithms
     width = 0.10 * ratio
     spacing = 1.2
@@ -55,7 +55,7 @@ for i, algo in enumerate(vtk_algorithms):
     algorithm_name = algorithms_names[algo]
     algorithm_label = f"{algorithm_name}-MinPointID" if "Hash" in algorithm_name else algorithm_name
     algorithm_colors[algorithm_label] = palette[i]
-for i, algo in enumerate(vtkm_algorithms):
+for i, algo in enumerate(viskores_algorithms):
     for hash_function in hash_functions[1:]:
         algorithm_name = f"{algorithms_names[algo]}-{hash_function_names[hash_function]}"
         algorithm_colors[algorithm_name] = palette[
@@ -178,7 +178,7 @@ if method == 0 or method == 1:
             output_file = f"{data_memory_footprint_dir}/{dataset_name}_{algorithm_name}.txt"
             memory_footprint_data[dataset_name][algorithm_label] = get_memory_footprint_info(output_file)
 
-        for algo in vtkm_algorithms:
+        for algo in viskores_algorithms:
             for hash_function in hash_functions[1:]:
                 algorithm_name = algorithms_names[algo] + "-" + hash_function_names[hash_function]
                 output_file = f"{data_memory_footprint_dir}/{dataset_name}_{algorithm_name}.txt"
@@ -360,7 +360,7 @@ if method == 0 or method == 3:
         # cache misses for reading the dataset
         dataset_cache_misses_file = f"{data_hash_performance_dir}/{dataset_name}_cache_misses.txt"
         dataset_cache_misses = get_cache_misses_info(dataset_cache_misses_file)
-        for algo in vtkm_algorithms:
+        for algo in viskores_algorithms:
             for hash_function in hash_functions[1:]:
                 algorithm_name = f"{algorithms_names[algo]}-{hash_function_names[hash_function]}"
                 algorithm_cache_misses_file = f"{data_hash_performance_dir}/{dataset_name}_{algorithm_name}_cache_misses.txt"
@@ -460,7 +460,7 @@ if method == 0 or method == 5:
         dataset_name = get_dataset_name(dataset)
         gpu_time_data_normal[dataset_name] = {}
         gpu_time_data_random[dataset_name] = {}
-        for algo in vtkm_algorithms:
+        for algo in viskores_algorithms:
             for hash_function in hash_functions[1:]:
                 algorithm_name = f"{algorithms_names[algo]}-{hash_function_names[hash_function]}"
 

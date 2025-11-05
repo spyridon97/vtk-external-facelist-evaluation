@@ -17,7 +17,7 @@ endif ()
 set(VTK_SMP_IMPLEMENTATION_TYPE TBB CACHE STRING "" FORCE)
 #set(VTK_USE_KOKKOS ON CACHE BOOL "" FORCE)
 #set(VTK_KOKKOS_BACKEND HIP CACHE STRING "" FORCE)
-set(VTK_MODULE_ENABLE_VTK_vtkvtkm YES CACHE BOOL "" FORCE)
+set(VTK_MODULE_ENABLE_VTK_vtkviskores YES CACHE BOOL "" FORCE)
 set(VTK_MODULE_ENABLE_VTK_AcceleratorsVTKmCore YES CACHE BOOL "" FORCE)
 set(VTK_MODULE_ENABLE_VTK_AcceleratorsVTKmDataModel YES CACHE BOOL "" FORCE)
 set(VTK_MODULE_ENABLE_VTK_AcceleratorsVTKmFilters YES CACHE BOOL "" FORCE)
@@ -28,7 +28,7 @@ include(FetchContent)
 FetchContent_Declare(
   VTK
   GIT_REPOSITORY https://gitlab.kitware.com/vtk/vtk.git
-  GIT_TAG v9.4.0
+  GIT_TAG v9.5.2
   GIT_PROGRESS ON
   SOURCE_DIR VTK
 )
@@ -44,8 +44,6 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(CLI11)
 
 set(headers
-  src/CellFaceMinMaxPointId.h
-
   src/ExternalFacesHashCountFnv1a.h
   src/ExternalFacesHashCountMinPointId.h
   src/ExternalFacesHashFightFnv1a.h
@@ -76,10 +74,10 @@ set(device_sources
 
 add_executable(${PROJECT_NAME} ${headers} ${sources} ${device_sources})
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${VTKm_INCLUDE_DIRS})
+target_include_directories(${PROJECT_NAME} PRIVATE ${Viskores_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PUBLIC
-  VTK::CommonCore VTK::IOXML VTK::FiltersGeometry VTK::vtkvtkm VTK::AcceleratorsVTKmDataModel CLI11::CLI11)
-vtkm_add_target_information(${PROJECT_NAME}
+  VTK::CommonCore VTK::IOXML VTK::FiltersGeometry VTK::vtkviskores VTK::AcceleratorsVTKmDataModel CLI11::CLI11)
+viskores_add_target_information(${PROJECT_NAME}
   DROP_UNUSED_SYMBOLS
   MODIFY_CUDA_FLAGS
   DEVICE_SOURCES ${device_sources}

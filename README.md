@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Repository for the evaluation of the external facelist calculation algorithms in VTK/VTk-m.
+Repository for the evaluation of the external facelist calculation algorithms in VTK/Viskores.
 
 The algorithms that are evaluated are the following:
 
@@ -10,12 +10,12 @@ The algorithms that are evaluated are the following:
 2. VTK's S-Hash found in src/vtkDataSetSurfaceFilterSHash
 3. VTK's P-Classifier found in src/vtkGeometryFilterPClassifier
 4. VTK's P-Hash found in src/vtkGeometryFilterPHash
-5. VTK-m's P-Hash-Sort with FNV1A found in src/ExternalFacesHashSortFnv1a
-6. VTK-m's P-Hash-Sort with MinPointID found in src/ExternalFacesHashSortMinPointId
-7. VTK-m's P-Hash-Fight with FNV1A found in src/ExternalFacesHashFightFnv1a
-8. VTK-m's P-Hash-Fight with MinPointID found in src/ExternalFacesHashFightMinPointId
-9. VTK-m's P-Hash-Count with FNV1A found in src/ExternalFacesHashCountFnv1a
-10. VTK-m's P-Hash-Count with MinPointID found in src/ExternalFacesHashCountMinPointId
+5. Viskores' P-Hash-Sort with FNV1A found in src/ExternalFacesHashSortFnv1a
+6. Viskores' P-Hash-Sort with MinPointID found in src/ExternalFacesHashSortMinPointId
+7. Viskores' P-Hash-Fight with FNV1A found in src/ExternalFacesHashFightFnv1a
+8. Viskores' P-Hash-Fight with MinPointID found in src/ExternalFacesHashFightMinPointId
+9. Viskores' P-Hash-Count with FNV1A found in src/ExternalFacesHashCountFnv1a
+10. Viskores' P-Hash-Count with MinPointID found in src/ExternalFacesHashCountMinPointId
 
 ## Compilation
 
@@ -84,7 +84,7 @@ are:
 1. memory-footprint: The memory footprint of the algorithms.
 2. cpu-time: The CPU time of all algorithms with regular connections and 1 thread, of parallel algorithms with regular
    and randomized connections using max number of threads.
-3. hash-performance: The face hash distributions of the hash functions, and the cache misses for each vtk-m algorithm
+3. hash-performance: The face hash distributions of the hash functions, and the cache misses for each Viskores algorithm
    with regular connections using different hash functions and max number of threads.
 4. speed-up: The speed-up of the parallel algorithms with regular connections using max number of threads.
-5. gpu-time: The GPU time of the vtkm algorithms with regular and randomized connections.
+5. gpu-time: The GPU time of the viskores algorithms with regular and randomized connections.

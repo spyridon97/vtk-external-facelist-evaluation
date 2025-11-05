@@ -1,12 +1,12 @@
-#include <vtkm/Version.h>
-#include <vtkm/cont/CellSetPermutation.h>
-#include <vtkm/cont/CellSetSingleType.h>
-#include <vtkm/cont/DataSet.h>
-#include <vtkm/cont/DataSetBuilderUniform.h>
-#include <vtkm/cont/Initialize.h>
-#include <vtkm/cont/Timer.h>
-#include <vtkm/filter/clean_grid/CleanGrid.h>
-#include <vtkm/filter/geometry_refinement/Tetrahedralize.h>
+#include <viskores/Version.h>
+#include <viskores/cont/CellSetPermutation.h>
+#include <viskores/cont/CellSetSingleType.h>
+#include <viskores/cont/DataSet.h>
+#include <viskores/cont/DataSetBuilderUniform.h>
+#include <viskores/cont/Initialize.h>
+#include <viskores/cont/Timer.h>
+#include <viskores/filter/clean_grid/CleanGrid.h>
+#include <viskores/filter/geometry_refinement/Tetrahedralize.h>
 
 #include <vtkCellData.h>
 #include <vtkIdList.h>
@@ -55,7 +55,7 @@ auto ReadDataSet(const std::string& filename) -> vtkSmartPointer<vtkUnstructured
 }
 
 auto RandomizeDataSet(const vtkSmartPointer<vtkUnstructuredGrid>& ug, YamlWriter& log,
-  vtkm::UInt32 seed) -> vtkSmartPointer<vtkUnstructuredGrid>
+  viskores::UInt32 seed) -> vtkSmartPointer<vtkUnstructuredGrid>
 {
   // Create a list of indices to shuffle (representing point IDs)
   std::vector<vtkIdType> pointMap(ug->GetNumberOfPoints());
@@ -125,9 +125,9 @@ auto RandomizeDataSet(const vtkSmartPointer<vtkUnstructuredGrid>& ug, YamlWriter
 
 template <typename ExternalFacesAlgorithm>
 auto RunVTKTrial(ExternalFacesAlgorithm* externalFaces, vtkUnstructuredGrid* inData,
-  YamlWriter& log, bool firstRun = false) -> vtkm::Float64
+  YamlWriter& log, bool firstRun = false) -> viskores::Float64
 {
-  vtkm::cont::Timer timer;
+  viskores::cont::Timer timer;
   timer.Start();
   inData->SetLinks(nullptr); // Clear the links to have a clean run
   externalFaces->SetInputData(inData);
@@ -143,7 +143,7 @@ auto RunVTKTrial(ExternalFacesAlgorithm* externalFaces, vtkUnstructuredGrid* inD
   }
   auto outData = externalFaces->GetOutput();
   timer.Stop();
-  vtkm::Float64 elapsedTime = timer.GetElapsedTime();
+  viskores::Float64 elapsedTime = timer.GetElapsedTime();
   if (firstRun)
   {
     log.AddDictionaryEntry("num-output-points", outData->GetNumberOfPoints());
@@ -179,24 +179,24 @@ auto DoVTKRun(const std::string& algorithmName, const std::string& hashName, uns
 }
 
 template <typename ExternalFacesWorklet>
-auto RunVTKmTrial(ExternalFacesWorklet externalFaces, const vtkm::cont::DataSet& inData,
-  YamlWriter& log, bool firstRun = false) -> vtkm::Float64
+auto RunViskoresTrial(ExternalFacesWorklet externalFaces, const viskores::cont::DataSet& inData,
+  YamlWriter& log, bool firstRun = false) -> viskores::Float64
 {
-  const vtkm::cont::UnknownCellSet& unknownCellSet = inData.GetCellSet();
-  auto inCellSet = unknownCellSet.ResetCellSetList<VTKM_DEFAULT_CELL_SET_LIST_UNSTRUCTURED>();
+  const viskores::cont::UnknownCellSet& unknownCellSet = inData.GetCellSet();
+  auto inCellSet = unknownCellSet.ResetCellSetList<VISKORES_DEFAULT_CELL_SET_LIST_UNSTRUCTURED>();
 
-  vtkm::cont::CellSetExplicit<> outCellSet;
+  viskores::cont::CellSetExplicit<> outCellSet;
 
   std::stringstream dummyStream;
   YamlWriter dummyLog(dummyStream);
 
-  vtkm::cont::Timer timer;
+  viskores::cont::Timer timer;
   timer.Start();
   try
   {
     externalFaces.Run(inCellSet, outCellSet, firstRun ? dummyLog : log);
   }
-  catch (vtkm::cont::Error& e)
+  catch (viskores::cont::Error& e)
   {
     log.AddDictionaryEntry("error", e.GetMessage());
     return 0.0;
@@ -207,11 +207,11 @@ auto RunVTKmTrial(ExternalFacesWorklet externalFaces, const vtkm::cont::DataSet&
     return 0.0;
   }
   timer.Stop();
-  vtkm::Float64 elapsedTime = timer.GetElapsedTime();
-  vtkm::filter::clean_grid::CleanGrid cleanGrid;
+  viskores::Float64 elapsedTime = timer.GetElapsedTime();
+  viskores::filter::clean_grid::CleanGrid cleanGrid;
   cleanGrid.SetMergePoints(false);
   cleanGrid.SetCompactPointFields(true);
-  vtkm::cont::DataSet outDataSet;
+  viskores::cont::DataSet outDataSet;
   outDataSet.AddCoordinateSystem(inData.GetCoordinateSystem());
   outDataSet.SetCellSet(outCellSet);
   timer.Start();
@@ -232,8 +232,8 @@ auto RunVTKmTrial(ExternalFacesWorklet externalFaces, const vtkm::cont::DataSet&
 }
 
 template <typename ExternalFacesWorklet>
-auto DoVTKmRun(const std::string& algorithmName, const std::string& hashName,
-  unsigned int numTrials, const vtkm::cont::DataSet& inData, YamlWriter& log) -> void
+auto DoViskoresRun(const std::string& algorithmName, const std::string& hashName,
+  unsigned int numTrials, const viskores::cont::DataSet& inData, YamlWriter& log) -> void
 {
   ExternalFacesWorklet externalFaces;
   log.StartListItem();
@@ -241,7 +241,7 @@ auto DoVTKmRun(const std::string& algorithmName, const std::string& hashName,
   log.AddDictionaryEntry("hash-name", hashName);
   log.AddDictionaryEntry("full-name", algorithmName + " " + hashName);
 
-  log.AddDictionaryEntry("first-run-time", RunVTKmTrial(externalFaces, inData, log, true));
+  log.AddDictionaryEntry("first-run-time", RunViskoresTrial(externalFaces, inData, log, true));
 
   if (numTrials > 0)
   {
@@ -250,7 +250,7 @@ auto DoVTKmRun(const std::string& algorithmName, const std::string& hashName,
     {
       log.StartListItem();
       log.AddDictionaryEntry("trial-index", trial);
-      log.AddDictionaryEntry("seconds-total", RunVTKmTrial(externalFaces, inData, log));
+      log.AddDictionaryEntry("seconds-total", RunViskoresTrial(externalFaces, inData, log));
     }
     log.EndBlock();
   }
@@ -272,8 +272,8 @@ auto ComputeFaceHashDistribution(
       vtkIdList* pointIds = cell->GetFace(faceId)->GetPointIds();
       std::sort(pointIds->GetPointer(0), pointIds->GetPointer(0) + pointIds->GetNumberOfIds());
 
-      vtkm::Id3 canonicalFaceId(pointIds->GetId(0), pointIds->GetId(1), pointIds->GetId(2));
-      vtkm::Id fnv1aHash = vtkm::Hash(canonicalFaceId) % numPoints;
+      viskores::Id3 canonicalFaceId(pointIds->GetId(0), pointIds->GetId(1), pointIds->GetId(2));
+      viskores::Id fnv1aHash = viskores::Hash(canonicalFaceId) % numPoints;
       ++fnv1aCounter[fnv1aHash];
 
       vtkIdType minPointId = pointIds->GetId(0);
@@ -328,14 +328,15 @@ auto main(int argc, char** argv) -> int
 
   vtksys::SystemInformation sysinfo;
 
-  std::string deviceName =
-    args.DeviceName != "TBB" ? vtkm::cont::make_DeviceAdapterId(args.DeviceName).GetName() : "TBB";
+  std::string deviceName = args.DeviceName != "TBB"
+    ? viskores::cont::make_DeviceAdapterId(args.DeviceName).GetName()
+    : "TBB";
 
   YamlWriter log;
   log.StartListItem();
 
   log.AddDictionaryEntry("vtk-version", VTK_VERSION_FULL);
-  log.AddDictionaryEntry("vtkm-version", VTKM_VERSION_FULL);
+  log.AddDictionaryEntry("viskores-version", VISKORES_VERSION_FULL);
   log.AddDictionaryEntry("hostname", sysinfo.GetHostname());
   std::time_t currentTime = std::time(nullptr);
   char timeString[256];
@@ -343,9 +344,9 @@ auto main(int argc, char** argv) -> int
   log.AddDictionaryEntry("date", timeString);
 
   vtkSMPTools::Initialize(static_cast<int>(args.NumberOfThreads));
-  // Construct the command line string for vtkm::cont::Initialize
-  std::vector<std::string> strings = { argv[0], "--vtkm-device", deviceName };
-  strings.emplace_back("--vtkm-num-threads");
+  // Construct the command line string for viskores::cont::Initialize
+  std::vector<std::string> strings = { argv[0], "--viskores-device", deviceName };
+  strings.emplace_back("--viskores-num-threads");
   strings.push_back(std::to_string(args.NumberOfThreads));
   std::vector<char*> argvVector;
   for (const auto& str : strings)
@@ -353,10 +354,11 @@ auto main(int argc, char** argv) -> int
     argvVector.push_back(const_cast<char*>(str.c_str()));
   }
   argvVector.push_back(nullptr);
-  int vtkm_argc = static_cast<int>(argvVector.size() - 1);
-  char** vtkm_argv = argvVector.data();
-  auto result = vtkm::cont::Initialize(vtkm_argc, vtkm_argv,
-    vtkm::cont::InitializeOptions::RequireDevice | vtkm::cont::InitializeOptions::ErrorOnBadOption);
+  int viskores_argc = static_cast<int>(argvVector.size() - 1);
+  char** viskores_argv = argvVector.data();
+  auto result = viskores::cont::Initialize(viskores_argc, viskores_argv,
+    viskores::cont::InitializeOptions::RequireDevice |
+      viskores::cont::InitializeOptions::ErrorOnBadOption);
   log.AddDictionaryEntry("device", result.Device.GetName());
   log.AddDictionaryEntry("num-threads", args.NumberOfThreads);
 
@@ -378,12 +380,13 @@ auto main(int argc, char** argv) -> int
   log.AddDictionaryEntry("num-input-cells", vtkInputData->GetNumberOfCells());
 
   // Convert the VTK data to VTK-m data if needed
-  // vtkm::cont::DataSet vtkmInputData;
-  // if (args.PHashSort || args.PHashFight || args.PHashCount)
+  // viskores::cont::DataSet viskoresInputData;
+  // if (args.DPHashSort || args.DPHashFight || args.DPHashCount)
   // {
-  //   vtkmInputData = tovtkm::Convert(vtkInputData, tovtkm::FieldsFlag::PointsAndCells);
+  //   viskoresInputData = tovtkm::Convert(vtkInputData,
+  //   tovtkm::FieldsFlag::PointsAndCells);
   // }
-  vtkm::cont::DataSet vtkmInputData =
+  viskores::cont::DataSet viskoresInputData =
     tovtkm::Convert(vtkInputData, tovtkm::FieldsFlag::PointsAndCells);
   // deallocate the VTK data if it is not needed
   // if (!(args.HashDistribution || args.SClassifier || args.SHash || args.PClassifier ||
@@ -426,39 +429,39 @@ auto main(int argc, char** argv) -> int
   {
     if (args.HashFunction == 0 || args.HashFunction == 1)
     {
-      DoVTKmRun<vtkm::worklet::ExternalFacesHashSortFnv1a>(
-        "DP-Hash-Sort", "FNV1A", args.NumberOfTrials, vtkmInputData, log);
+      DoViskoresRun<viskores::worklet::ExternalFacesHashSortFnv1a>(
+        "DP-Hash-Sort", "FNV1A", args.NumberOfTrials, viskoresInputData, log);
     }
     if (args.HashFunction == 0 || args.HashFunction == 2)
     {
-      DoVTKmRun<vtkm::worklet::ExternalFacesHashSortMinPointId>(
-        "DP-Hash-Sort", "MinPointID", args.NumberOfTrials, vtkmInputData, log);
+      DoViskoresRun<viskores::worklet::ExternalFacesHashSortMinPointId>(
+        "DP-Hash-Sort", "MinPointID", args.NumberOfTrials, viskoresInputData, log);
     }
   }
   if (args.DPHashFight)
   {
     if (args.HashFunction == 0 || args.HashFunction == 1)
     {
-      DoVTKmRun<vtkm::worklet::ExternalFacesHashFightFnv1a>(
-        "DP-Hash-Fight", "FNV1A", args.NumberOfTrials, vtkmInputData, log);
+      DoViskoresRun<viskores::worklet::ExternalFacesHashFightFnv1a>(
+        "DP-Hash-Fight", "FNV1A", args.NumberOfTrials, viskoresInputData, log);
     }
     if (args.HashFunction == 0 || args.HashFunction == 2)
     {
-      DoVTKmRun<vtkm::worklet::ExternalFacesHashFightMinPointId>(
-        "DP-Hash-Fight", "MinPointID", args.NumberOfTrials, vtkmInputData, log);
+      DoViskoresRun<viskores::worklet::ExternalFacesHashFightMinPointId>(
+        "DP-Hash-Fight", "MinPointID", args.NumberOfTrials, viskoresInputData, log);
     }
   }
   if (args.DPHashCount)
   {
     if (args.HashFunction == 0 || args.HashFunction == 1)
     {
-      DoVTKmRun<vtkm::worklet::ExternalFacesHashCountFnv1a>(
-        "DP-Hash-Count", "FNV1A", args.NumberOfTrials, vtkmInputData, log);
+      DoViskoresRun<viskores::worklet::ExternalFacesHashCountFnv1a>(
+        "DP-Hash-Count", "FNV1A", args.NumberOfTrials, viskoresInputData, log);
     }
     if (args.HashFunction == 0 || args.HashFunction == 2)
     {
-      DoVTKmRun<vtkm::worklet::ExternalFacesHashCountMinPointId>(
-        "DP-Hash-Count", "MinPointID", args.NumberOfTrials, vtkmInputData, log);
+      DoViskoresRun<viskores::worklet::ExternalFacesHashCountMinPointId>(
+        "DP-Hash-Count", "MinPointID", args.NumberOfTrials, viskoresInputData, log);
     }
   }
   log.EndBlock();

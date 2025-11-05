@@ -69,10 +69,10 @@ algorithms = ["--s-classifier", "--s-hash", "--p-classifier", "--p-hash", "--dp-
               "--dp-hash-count"]
 parallel_algorithms = algorithms[2:]
 vtk_algorithms = algorithms[:4]
-vtkm_algorithms = algorithms[4:]
+viskores_algorithms = algorithms[4:]
 algorithms_joined = " ".join(algorithms)
 parallel_algorithms_joined = " ".join(parallel_algorithms)
-vtkm_algorithms_joined = " ".join(vtkm_algorithms)
+viskores_algorithms_joined = " ".join(viskores_algorithms)
 
 # Hash functions
 hash_function_names = ["All", "FNV1A", "MinPointID"]
