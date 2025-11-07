@@ -1,0 +1,102 @@
+#!/bin/bash
+
+#set -x
+set -e
+
+base_dir=`pwd`
+
+module load gcc/13.3.0
+
+module load cuda/12.9
+
+#cmake_generator="Unix Makefiles"
+cmake_generator="Ninja"
+
+export CRAYPE_LINK_TYPE=dynamic
+
+kokkos_repo=https://github.com/kokkos/kokkos.git
+kokkos_branch=4.7.01
+
+kokkos_src_dir=${base_dir}/kokkos/src
+kokkos_build_dir=${base_dir}/kokkos/build
+kokkos_install_dir=${base_dir}/kokkos/install
+
+if true; then
+rm -rf "${kokkos_src_dir}"
+rm -rf "${kokkos_build_dir}"
+rm -rf "${kokkos_install_dir}"
+if [[ ! -d ${kokkos_src_dir} ]] ; then
+  git clone -b ${kokkos_branch} ${kokkos_repo} "${kokkos_src_dir}"
+fi
+cmake -G "${cmake_generator}" -S "${kokkos_src_dir}" -B "${kokkos_build_dir}" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_SHARED_LIBS=ON \
+  -DCMAKE_CXX_STANDARD=17 \
+  -DCMAKE_INSTALL_PREFIX="${kokkos_install_dir}" \
+  -DCUDAToolkit_ROOT="/nas/sycamore/apps/cuda/12.9/" \
+  -DCMAKE_CUDA_ARCHITECTURES="90" \
+  -DKokkos_ARCH_HOPPER90=ON \
+  -DKokkos_ENABLE_CUDA=ON \
+  -DKokkos_ENABLE_CUDA_RELOCATABLE_DEVICE_CODE=OFF \
+  -DKokkos_ENABLE_SERIAL=ON
+
+time cmake --build "${kokkos_build_dir}" -j
+cmake --install "${kokkos_build_dir}"
+fi
+
+tbb_repo=https://github.com/oneapi-src/oneTBB.git
+tbb_branch=v2022.3.0
+
+tbb_src_dir=${base_dir}/tbb/src
+tbb_build_dir=${base_dir}/tbb/build
+tbb_install_dir=${base_dir}/tbb/install
+
+if true; then
+rm -rf "${tbb_src_dir}"
+rm -rf "${tbb_build_dir}"
+rm -rf "${tbb_install_dir}"
+if [[ ! -d ${tbb_src_dir} ]] ; then
+  git clone -b ${tbb_branch} ${tbb_repo} "${tbb_src_dir}"
+fi
+cmake -G "${cmake_generator}" -S "${tbb_src_dir}" -B "${tbb_build_dir}" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_SHARED_LIBS=ON \
+  -DCMAKE_CXX_STANDARD=17 \
+  -DCMAKE_CXX_COMPILER=g++ \
+  -DCMAKE_C_COMPILER=gcc \
+  -DCMAKE_INSTALL_PREFIX="${tbb_install_dir}" \
+  -DTBB_TEST=OFF
+
+time cmake --build "${tbb_build_dir}" -j
+cmake --install "${tbb_build_dir}"
+fi
+
+vtkefe_src_dir=${base_dir}
+vtkefe_build_dir=${base_dir}/build
+vtkefe_install_dir=${base_dir}/install
+
+if true; then
+rm -rf "${vtkefe_build_dir}"
+rm -rf "${vtkefe_install_dir}"
+cmake -G "${cmake_generator}" -S "${vtkefe_src_dir}" -B "${vtkefe_build_dir}" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_SHARED_LIBS=ON \
+  -DCMAKE_CXX_STANDARD=17 \
+  -DCMAKE_CXX_COMPILER=g++ \
+  -DCMAKE_C_COMPILER=gcc \
+  -DCMAKE_PREFIX_PATH="${kokkos_install_dir}" \
+  -DCMAKE_INSTALL_PREFIX="${vtkefe_install_dir}" \
+  -DCUDAToolkit_ROOT="/nas/sycamore/apps/cuda/12.9/" \
+  -DCMAKE_CUDA_ARCHITECTURES="80" \
+  -DKokkos_CXX_COMPILER="$(which nvcc)" \
+  -DVTK_USE_KOKKOS=ON \
+  -DVTK_KOKKOS_BACKEND=CUDA \
+  -DTBB_ROOT="${tbb_install_dir}" \
+  -DViskores_USE_DOUBLE_PRECISION=ON
+
+# Viskores configuration fix to enable Kokkos Thrust support
+sed -i 's|/\* #undef VISKORES_ENABLE_KOKKOS_THRUST \*/|#define VISKORES_ENABLE_KOKKOS_THRUST|g' "${vtkefe_build_dir}/build/VTK/ThirdParty/viskores/vtkviskores/viskores/include/viskores/internal/Configure.h"
+
+time cmake --build "${vtkefe_build_dir}" -j
+cmake --install "${vtkefe_build_dir}"
+fi

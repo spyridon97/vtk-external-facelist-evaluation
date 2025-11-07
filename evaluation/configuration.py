@@ -29,6 +29,7 @@ results_dir = os.path.join(evaluation_dir, "results")
 # Make sure this is the correct configuration
 # configuration = "testing"
 configuration = f"frontier_rocm7.0.2_tbb2022.3.0_kokkos4.7.01"
+# configuration = f"sycamore_cuda12.9_tbb2022.3.0_kokkos4.7.01"
 config_dir = os.path.join(results_dir, configuration)
 
 data_dir = os.path.join(config_dir, "data")
