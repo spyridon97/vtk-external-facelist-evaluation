@@ -9,6 +9,7 @@ from configuration import *
 # Figure size
 fig_width = 8
 fig_height = 6.5
+fig_height_small = 5
 
 legend_fontsize = 11
 axis_label_fontsize = 14
@@ -425,7 +426,7 @@ if method == 0 or method == 4:
         df_speed_up.to_csv(f"{fig_speed_up_dir}/{dataset_name}_speed_up.csv", index=True, header=True)
         print(df_speed_up)
         # Create the figure
-        fig, ax = plt.subplots(figsize=(fig_width, fig_height))
+        fig, ax = plt.subplots(figsize=(fig_width, fig_height_small))
 
         # Loop through each dataset and plot its values across threads
         for algorithm_name in df_speed_up.columns:
