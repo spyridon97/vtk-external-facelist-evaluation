@@ -1,0 +1,29 @@
+- vtk-version: 9.5.2
+  viskores-version: 1.0.0
+  hostname: frontier10406
+  date: 2025-11-06T10:42:00-0500
+  device: TBB
+  num-threads: 1
+  input-file: /ccs/home/spyridon97/Data/F-15-tet.vtu
+  topology-connections: regular
+  num-input-points: 116414075
+  num-input-cells: 693467546
+  dataset-memory-used: 33661340
+  experiments:
+    - algorithm-name: DP-Hash-Sort
+      hash-name: FNV1A
+      full-name: DP-Hash-Sort FNV1A
+      num-output-points: 1979239
+      num-output-cells: 3958470
+      first-run-time: 535.197
+
+ Performance counter stats for '/lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation -i /ccs/home/spyridon97/Data/F-15-tet.vtu -d TBB -t 1 --dp-hash-sort -f 1 -n 0':
+
+    19,395,651,098      cache-misses                                                          
+
+     793.121058808 seconds time elapsed
+
+     610.590380000 seconds user
+      59.048789000 seconds sys
+
+

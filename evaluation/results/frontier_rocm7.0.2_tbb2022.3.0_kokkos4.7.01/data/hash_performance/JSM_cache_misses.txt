@@ -1,0 +1,23 @@
+- vtk-version: 9.5.2
+  viskores-version: 1.0.0
+  hostname: frontier10406
+  date: 2025-11-06T08:45:33-0500
+  device: TBB
+  num-threads: 1
+  input-file: /ccs/home/spyridon97/Data/JSM.vtu
+  topology-connections: regular
+  num-input-points: 50429916
+  num-input-cells: 120046738
+  dataset-memory-used: 7802948
+  experiments:
+
+ Performance counter stats for '/lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation -i /ccs/home/spyridon97/Data/JSM.vtu -d TBB -n 0':
+
+        38,107,312      cache-misses                                                          
+
+       6.793443612 seconds time elapsed
+
+       0.741697000 seconds user
+       1.379803000 seconds sys
+
+

@@ -1,0 +1,29 @@
+- vtk-version: 9.5.2
+  viskores-version: 1.0.0
+  hostname: frontier10406
+  date: 2025-11-06T10:08:05-0500
+  device: TBB
+  num-threads: 1
+  input-file: /ccs/home/spyridon97/Data/Synthetic.vtu
+  topology-connections: regular
+  num-input-points: 251239591
+  num-input-cells: 250047000
+  dataset-memory-used: 21226980
+  experiments:
+    - algorithm-name: DP-Hash-Count
+      hash-name: FNV1A
+      full-name: DP-Hash-Count FNV1A
+      num-output-points: 2381402
+      num-output-cells: 2381400
+      first-run-time: 179.745
+
+ Performance counter stats for '/lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation -i /ccs/home/spyridon97/Data/Synthetic.vtu -d TBB -t 1 --dp-hash-count -f 1 -n 0':
+
+    15,884,881,389      cache-misses                                                          
+
+     424.416182037 seconds time elapsed
+
+     239.242263000 seconds user
+      33.710923000 seconds sys
+
+
