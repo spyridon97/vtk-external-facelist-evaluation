@@ -1,0 +1,7 @@
+Algorithm,Body,Body_ratio,JSM,JSM_ratio,F-15,F-15_ratio,Synthetic,Synthetic_ratio,JSM-tet,JSM-tet_ratio,F-15-tet,F-15-tet_ratio
+DP-Hash-Sort-FNV1A,0.16,1.00,0.24,1.00,0.87,1.34,,,0.76,1.46,,
+DP-Hash-Sort-MinPointID,0.83,5.27,0.91,3.75,2.17,3.34,,,2.15,4.14,,
+DP-Hash-Fight-FNV1A,0.20,1.26,0.32,1.31,,,,,,,,
+DP-Hash-Fight-MinPointID,1.02,6.49,0.87,3.57,,,,,,,,
+DP-Hash-Count-FNV1A,0.26,1.66,0.30,1.23,0.65,1.00,0.63,1.05,0.52,1.00,1.28,1.00
+DP-Hash-Count-MinPointID,0.38,2.44,0.37,1.52,0.71,1.09,0.60,1.00,0.81,1.56,1.92,1.50
