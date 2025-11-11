@@ -1,0 +1,54 @@
+- vtk-version: 9.5.2
+  viskores-version: 1.0.0
+  hostname: frontier10406
+  date: 2025-11-06T08:06:14-0500
+  device: TBB
+  num-threads: 1
+  input-file: /ccs/home/spyridon97/Data/Synthetic.vtu
+  topology-connections: regular
+  num-input-points: 251239591
+  num-input-cells: 250047000
+  dataset-memory-used: 21227012
+  experiments:
+    face-hash-distribution:
+      FNV1A:
+        0: 11547401
+        1: 116344
+        2: 36520986
+        3: 361019
+        4: 56664931
+        5: 548207
+        6: 57430193
+        7: 543499
+        8: 42788277
+        9: 397485
+        10: 24977076
+        11: 226550
+        12: 11911415
+        13: 105772
+        14: 4761963
+        15: 41257
+        16: 1628590
+        17: 14164
+        18: 484593
+        19: 3924
+        20: 127361
+        21: 1029
+        22: 29701
+        23: 230
+        24: 6135
+        25: 52
+        26: 1201
+        27: 10
+        28: 181
+        29: 2
+        30: 34
+        32: 8
+        36: 1
+      MinPointID:
+        0: 1891
+        1: 1190700
+        3: 1
+        4: 1887
+        5: 1186923
+        6: 248858189

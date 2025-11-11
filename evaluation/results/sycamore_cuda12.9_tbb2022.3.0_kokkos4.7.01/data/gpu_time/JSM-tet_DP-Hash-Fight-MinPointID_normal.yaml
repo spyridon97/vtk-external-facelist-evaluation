@@ -1,0 +1,52 @@
+- vtk-version: 9.5.2
+  viskores-version: 1.0.0
+  hostname: g15070408
+  date: 2025-11-07T19:09:09-0500
+  device: Kokkos
+  num-threads: 128
+  input-file: /work/users/s/p/spiros/Data/JSM-tet.vtu
+  topology-connections: regular
+  num-input-points: 50429916
+  num-input-cells: 299608989
+  dataset-memory-used: 13355612
+  experiments:
+    - algorithm-name: DP-Hash-Fight
+      hash-name: MinPointID
+      full-name: DP-Hash-Fight MinPointID
+[0m[31m2025-11-07 19:09:14.992 (   5.674s) [main thread     ]         TryExecute.cxx:44     ERR| TryExecute encountered an error: Bad allocation (Failed to allocate 8782290760 bytes on Kokkos device)[0m
+[0m[31m2025-11-07 19:09:14.992 (   5.674s) [main thread     ]         TryExecute.cxx:44     ERR| Failing functor: viskores::cont::detail::CopyIfFunctor[0m
+[0m[31m2025-11-07 19:09:14.992 (   5.674s) [main thread     ]         TryExecute.cxx:44     ERR| Failing device: Kokkos[0m
+[0m[31m2025-11-07 19:09:14.992 (   5.674s) [main thread     ]         TryExecute.cxx:44     ERR| The failing device has been disabled.[0m
+      error: Failed to execute worklet on any device.
+      first-run-time: 0
+      trials:
+        - trial-index: 0
+          error: Failed to execute worklet on any device.
+          seconds-total: 0
+        - trial-index: 1
+          error: Failed to execute worklet on any device.
+          seconds-total: 0
+        - trial-index: 2
+          error: Failed to execute worklet on any device.
+          seconds-total: 0
+        - trial-index: 3
+          error: Failed to execute worklet on any device.
+          seconds-total: 0
+        - trial-index: 4
+          error: Failed to execute worklet on any device.
+          seconds-total: 0
+        - trial-index: 5
+          error: Failed to execute worklet on any device.
+          seconds-total: 0
+        - trial-index: 6
+          error: Failed to execute worklet on any device.
+          seconds-total: 0
+        - trial-index: 7
+          error: Failed to execute worklet on any device.
+          seconds-total: 0
+        - trial-index: 8
+          error: Failed to execute worklet on any device.
+          seconds-total: 0
+        - trial-index: 9
+          error: Failed to execute worklet on any device.
+          seconds-total: 0

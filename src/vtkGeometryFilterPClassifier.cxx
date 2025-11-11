@@ -2239,7 +2239,7 @@ int vtkGeometryFilterPClassifier::UnstructuredGridExecute(vtkDataSet* dataSetInp
   if (this->FastMode)
   {
     FastExtractUG* ext = new FastExtractUG(input, cellVis, cellGhosts, this->Merging, verts, lines,
-      polys, strips, this->Degree, input->GetCellLinks(), exc, &threads);
+      polys, strips, this->Degree, input->GetLinks(), exc, &threads);
     vtkSMPTools::For(0, numCells, *ext);
     extract = ext;
   }

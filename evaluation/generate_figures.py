@@ -9,6 +9,7 @@ from configuration import *
 # Figure size
 fig_width = 8
 fig_height = 6.5
+fig_height_small = 5
 
 legend_fontsize = 11
 axis_label_fontsize = 14
@@ -17,7 +18,7 @@ title_fontsize = axis_label_fontsize
 
 # Set column width and spacing x-axis positions for datasets
 def get_width_and_spacing(num_algorithms):
-    max_num_algorithms = len(vtk_algorithms) + (len(hash_functions) - 1) * len(vtkm_algorithms)
+    max_num_algorithms = len(vtk_algorithms) + (len(hash_functions) - 1) * len(viskores_algorithms)
     ratio = max_num_algorithms / num_algorithms
     width = 0.10 * ratio
     spacing = 1.2
@@ -55,7 +56,7 @@ for i, algo in enumerate(vtk_algorithms):
     algorithm_name = algorithms_names[algo]
     algorithm_label = f"{algorithm_name}-MinPointID" if "Hash" in algorithm_name else algorithm_name
     algorithm_colors[algorithm_label] = palette[i]
-for i, algo in enumerate(vtkm_algorithms):
+for i, algo in enumerate(viskores_algorithms):
     for hash_function in hash_functions[1:]:
         algorithm_name = f"{algorithms_names[algo]}-{hash_function_names[hash_function]}"
         algorithm_colors[algorithm_name] = palette[
@@ -65,16 +66,8 @@ algorithm_colors["P-Classifier"], algorithm_colors["S-Hash-MinPointID"] = algori
     algorithm_colors["P-Classifier"]
 
 
-def print_improvement_ratio(df):
+def print_total_improvement_ratio(df):
     print()
-    # find me ratios of all algorithms over the minimum valud for each dataset
-    for dataset in df.columns:
-        min = df[dataset].min()
-        for algo in df.index:
-            value = df.loc[algo][dataset]
-            ratio = value / min
-            print(f"Dataset: {dataset}, Algorithm: {algo}, Value/Min Ratio: {ratio:.2f}")
-        print()
     algorithm_ratios = {}
     for dataset in df.columns:
         min = df[dataset].min()
@@ -87,6 +80,28 @@ def print_improvement_ratio(df):
     for algorithm, ratios in algorithm_ratios.items():
         print(f"Algorithm: {algorithm}, Min - Max Ratios: {np.min(ratios):.2f}x - {np.max(ratios):.2f}x")
     print()
+
+
+def add_improvement_ratio_columns(df, metric_type='ratio'):
+    result_df = df.copy()
+
+    for dataset in df.columns:
+        result_df[dataset] = result_df[dataset].round(2)
+
+    for dataset in df.columns:
+        if metric_type == 'ratio':
+            min_val = df[dataset].min(skipna=True)
+            ratio_col = df[dataset] / min_val
+            col_name = f"{dataset}_ratio"
+        else:  # speedup
+            max_val = df[dataset].max(skipna=True)
+            ratio_col = max_val / df[dataset]
+            col_name = f"{dataset}_speedup"
+
+        col_idx = result_df.columns.get_loc(dataset)
+        result_df.insert(col_idx + 1, col_name, ratio_col.round(2))
+
+    return result_df
 
 
 def create_bar_chart(df, add_min_offset, x_label, y_label, legend_title, legend_loc, figure_filename):
@@ -178,7 +193,7 @@ if method == 0 or method == 1:
             output_file = f"{data_memory_footprint_dir}/{dataset_name}_{algorithm_name}.txt"
             memory_footprint_data[dataset_name][algorithm_label] = get_memory_footprint_info(output_file)
 
-        for algo in vtkm_algorithms:
+        for algo in viskores_algorithms:
             for hash_function in hash_functions[1:]:
                 algorithm_name = algorithms_names[algo] + "-" + hash_function_names[hash_function]
                 output_file = f"{data_memory_footprint_dir}/{dataset_name}_{algorithm_name}.txt"
@@ -191,11 +206,13 @@ if method == 0 or method == 1:
     algorithms_list = df_memory_footprint.index.tolist()
     algorithms_list[1], algorithms_list[2] = algorithms_list[2], algorithms_list[1]
     df_memory_footprint = df_memory_footprint.reindex(algorithms_list)
-    df_memory_footprint.to_csv(f"{fig_memory_footprint_dir}/memory_footprint.csv", index=True, header=True)
-    print(df_memory_footprint)
 
     # Print improvement ratios
-    print_improvement_ratio(df_memory_footprint)
+    df_memory_footprint_with_ratio = add_improvement_ratio_columns(df_memory_footprint)
+    df_memory_footprint_with_ratio.to_csv(f"{fig_memory_footprint_dir}/memory_footprint.csv", index=True,
+                                           header=True, float_format='%.2f')
+    print(df_memory_footprint_with_ratio)
+    print_total_improvement_ratio(df_memory_footprint)
 
     # Create bar chart
     create_bar_chart(df_memory_footprint, True, 'Memory footprint (gigabytes)', 'Datasets', 'Algorithms', 'lower right',
@@ -259,17 +276,18 @@ if method == 0 or method == 2:
         # Convert the data to a pandas DataFrame
         df_cpu_time = pd.DataFrame(cpu_time_data)
         df_cpu_time.index.name = 'Algorithm'
-        if filename_prefix == f"{fig_cpu_time_dir}/cpu_time_1_threads_normal":
+        if filename_prefix == filename_prefixes[0]:  # 1 thread
             # swap S-Classifier is next to P-Classifier
             algorithms_list = df_cpu_time.index.tolist()
             algorithms_list[1], algorithms_list[2] = algorithms_list[2], algorithms_list[1]
             df_cpu_time = df_cpu_time.reindex(algorithms_list)
             df_cpu_time = df_cpu_time.reindex(algorithms_list)
-        df_cpu_time.to_csv(f"{filename_prefix}.csv", index=True, header=True)
-        print(df_cpu_time)
 
         # Print improvement ratios
-        print_improvement_ratio(df_cpu_time)
+        df_cpu_time_with_ratio = add_improvement_ratio_columns(df_cpu_time)
+        df_cpu_time_with_ratio.to_csv(f"{filename_prefix}.csv", index=True, header=True, float_format='%.2f')
+        print(df_cpu_time_with_ratio)
+        print_total_improvement_ratio(df_cpu_time)
 
         # Create bar chart
         create_bar_chart(df_cpu_time, True, 'CPU time (seconds)', 'Datasets', 'Algorithms', 'lower right',
@@ -299,7 +317,7 @@ if method == 0 or method == 3:
             face_hash_distribution_data[dataset_name] = experiments["face-hash-distribution"]
 
     # Plot settings
-    fig, axs = plt.subplots(2, 2, figsize=(fig_width, fig_height))
+    fig, axs = plt.subplots(3, 2, figsize=(fig_width, fig_height))
     axs = axs.flatten()  # Flatten the 2D array of axes for easier indexing
 
     # Iterate over the data and plot
@@ -360,7 +378,7 @@ if method == 0 or method == 3:
         # cache misses for reading the dataset
         dataset_cache_misses_file = f"{data_hash_performance_dir}/{dataset_name}_cache_misses.txt"
         dataset_cache_misses = get_cache_misses_info(dataset_cache_misses_file)
-        for algo in vtkm_algorithms:
+        for algo in viskores_algorithms:
             for hash_function in hash_functions[1:]:
                 algorithm_name = f"{algorithms_names[algo]}-{hash_function_names[hash_function]}"
                 algorithm_cache_misses_file = f"{data_hash_performance_dir}/{dataset_name}_{algorithm_name}_cache_misses.txt"
@@ -371,11 +389,13 @@ if method == 0 or method == 3:
     # Convert the data to a pandas DataFrame
     df_cache_misses = pd.DataFrame(cache_misses_data)
     df_cache_misses.index.name = 'Algorithm'
-    df_cache_misses.to_csv(f"{fig_hash_performance_dir}/cache_misses.csv", index=True, header=True)
-    print(df_cache_misses)
 
     # Print improvement ratios
-    print_improvement_ratio(df_cache_misses)
+    df_cache_misses_with_ratio = add_improvement_ratio_columns(df_cache_misses)
+    df_cache_misses_with_ratio.to_csv(f"{fig_hash_performance_dir}/cache_misses.csv", index=True,
+                                       header=True)
+    print(df_cache_misses_with_ratio)
+    print_total_improvement_ratio(df_cache_misses)
 
     # create bar chart
     create_bar_chart(df_cache_misses, True, 'CPU L3 cache misses (count)', 'Datasets', 'Algorithms', 'lower right',
@@ -397,19 +417,16 @@ if method == 0 or method == 4:
     # Convert the data to a pandas DataFrame
     df_speed_up_1_dataset = pd.DataFrame(cpu_time[biggest_datasets_names[0]]).transpose()
     df_speed_up_1_dataset.index.name = 'Threads'
-    df_speed_up_1_dataset.to_csv(f"{fig_speed_up_dir}/{biggest_datasets_names[0]}_speed_up.csv", index=True,
-                                 header=True)
     df_speed_up_2_dataset = pd.DataFrame(cpu_time[biggest_datasets_names[1]]).transpose()
     df_speed_up_2_dataset.index.name = 'Threads'
-    df_speed_up_2_dataset.to_csv(f"{fig_speed_up_dir}/{biggest_datasets_names[1]}_speed_up.csv", index=True,
-                                 header=True)
 
     speed_up_dataframes = [df_speed_up_1_dataset, df_speed_up_2_dataset]
 
     for dataset_name, df_speed_up in zip(biggest_datasets_names, speed_up_dataframes):
+        df_speed_up.to_csv(f"{fig_speed_up_dir}/{dataset_name}_speed_up.csv", index=True, header=True)
         print(df_speed_up)
         # Create the figure
-        fig, ax = plt.subplots(figsize=(fig_width, fig_height))
+        fig, ax = plt.subplots(figsize=(fig_width, fig_height_small))
 
         # Loop through each dataset and plot its values across threads
         for algorithm_name in df_speed_up.columns:
@@ -460,7 +477,7 @@ if method == 0 or method == 5:
         dataset_name = get_dataset_name(dataset)
         gpu_time_data_normal[dataset_name] = {}
         gpu_time_data_random[dataset_name] = {}
-        for algo in vtkm_algorithms:
+        for algo in viskores_algorithms:
             for hash_function in hash_functions[1:]:
                 algorithm_name = f"{algorithms_names[algo]}-{hash_function_names[hash_function]}"
 
@@ -481,11 +498,12 @@ if method == 0 or method == 5:
         # Convert the data to a pandas DataFrame
         df_gpu_time = pd.DataFrame(gpu_time_data)
         df_gpu_time.index.name = 'Algorithm'
-        df_gpu_time.to_csv(f"{filename_prefix}.csv", index=True, header=True)
-        print(df_gpu_time)
 
         # Print improvement ratios
-        print_improvement_ratio(df_gpu_time)
+        df_gpu_time_with_ratio = add_improvement_ratio_columns(df_gpu_time)
+        df_gpu_time_with_ratio.to_csv(f"{filename_prefix}.csv", index=True, header=True, float_format='%.2f')
+        print(df_gpu_time_with_ratio)
+        print_total_improvement_ratio(df_gpu_time)
 
         # Create bar chart
         create_bar_chart(df_gpu_time, False, 'GPU time (seconds)', 'Datasets', 'Algorithms', 'center right',

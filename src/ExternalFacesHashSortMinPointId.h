@@ -7,45 +7,44 @@
 //  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
 //  PURPOSE.  See the above copyright notice for more information.
 //============================================================================
-#ifndef vtk_m_worklet_ExternalFacesHashSortMinPointId_h
-#define vtk_m_worklet_ExternalFacesHashSortMinPointId_h
+#ifndef viskores_worklet_ExternalFacesHashSortMinPointId_h
+#define viskores_worklet_ExternalFacesHashSortMinPointId_h
 
-#include <vtkm/CellShape.h>
-#include <vtkm/Hash.h>
-#include <vtkm/Math.h>
+#include <viskores/CellShape.h>
+#include <viskores/Hash.h>
+#include <viskores/Math.h>
 
-#include <vtkm/exec/CellFace.h>
+#include <viskores/exec/CellFace.h>
 
-#include <vtkm/cont/Algorithm.h>
-#include <vtkm/cont/ArrayCopy.h>
-#include <vtkm/cont/ArrayCopyDevice.h>
-#include <vtkm/cont/ArrayGetValues.h>
-#include <vtkm/cont/ArrayHandle.h>
-#include <vtkm/cont/ArrayHandleConcatenate.h>
-#include <vtkm/cont/ArrayHandleConstant.h>
-#include <vtkm/cont/ArrayHandleGroupVec.h>
-#include <vtkm/cont/ArrayHandleGroupVecVariable.h>
-#include <vtkm/cont/ArrayHandleIndex.h>
-#include <vtkm/cont/ArrayHandlePermutation.h>
-#include <vtkm/cont/ArrayHandleTransform.h>
-#include <vtkm/cont/ArrayHandleView.h>
-#include <vtkm/cont/CellSetExplicit.h>
-#include <vtkm/cont/ConvertNumComponentsToOffsets.h>
-#include <vtkm/cont/DataSet.h>
-#include <vtkm/cont/Field.h>
-#include <vtkm/cont/Timer.h>
+#include <viskores/cont/Algorithm.h>
+#include <viskores/cont/ArrayCopy.h>
+#include <viskores/cont/ArrayCopyDevice.h>
+#include <viskores/cont/ArrayGetValues.h>
+#include <viskores/cont/ArrayHandle.h>
+#include <viskores/cont/ArrayHandleConcatenate.h>
+#include <viskores/cont/ArrayHandleConstant.h>
+#include <viskores/cont/ArrayHandleGroupVec.h>
+#include <viskores/cont/ArrayHandleGroupVecVariable.h>
+#include <viskores/cont/ArrayHandleIndex.h>
+#include <viskores/cont/ArrayHandlePermutation.h>
+#include <viskores/cont/ArrayHandleTransform.h>
+#include <viskores/cont/ArrayHandleView.h>
+#include <viskores/cont/CellSetExplicit.h>
+#include <viskores/cont/ConvertNumComponentsToOffsets.h>
+#include <viskores/cont/DataSet.h>
+#include <viskores/cont/Field.h>
+#include <viskores/cont/Timer.h>
 
-#include <vtkm/worklet/DispatcherMapTopology.h>
-#include <vtkm/worklet/DispatcherReduceByKey.h>
-#include <vtkm/worklet/Keys.h>
-#include <vtkm/worklet/ScatterCounting.h>
-#include <vtkm/worklet/WorkletMapTopology.h>
-#include <vtkm/worklet/WorkletReduceByKey.h>
+#include <viskores/worklet/DispatcherMapTopology.h>
+#include <viskores/worklet/DispatcherReduceByKey.h>
+#include <viskores/worklet/Keys.h>
+#include <viskores/worklet/ScatterCounting.h>
+#include <viskores/worklet/WorkletMapTopology.h>
+#include <viskores/worklet/WorkletReduceByKey.h>
 
-#include "CellFaceMinMaxPointId.h"
 #include "YamlWriter.h"
 
-namespace vtkm
+namespace viskores
 {
 namespace worklet
 {
@@ -53,7 +52,7 @@ namespace worklet
 struct ExternalFacesHashSortMinPointId
 {
   // Worklet that returns the number of faces for each cell/shape
-  class NumFacesPerCell : public vtkm::worklet::WorkletVisitCellsWithPoints
+  class NumFacesPerCell : public viskores::worklet::WorkletVisitCellsWithPoints
   {
   public:
     using ControlSignature = void(CellSetIn inCellSet, FieldOut numFacesInCell);
@@ -61,14 +60,14 @@ struct ExternalFacesHashSortMinPointId
     using InputDomain = _1;
 
     template <typename CellShapeTag>
-    VTKM_EXEC void operator()(CellShapeTag shape, vtkm::IdComponent& numFaces) const
+    VISKORES_EXEC void operator()(CellShapeTag shape, viskores::IdComponent& numFaces) const
     {
-      vtkm::exec::CellFaceNumberOfFaces(shape, numFaces);
+      viskores::exec::CellFaceNumberOfFaces(shape, numFaces);
     }
   };
 
   // Worklet that identifies a cell face by a hash value. Not necessarily completely unique.
-  class FaceHash : public vtkm::worklet::WorkletVisitCellsWithPoints
+  class FaceHash : public viskores::worklet::WorkletVisitCellsWithPoints
   {
   public:
     using ControlSignature = void(
@@ -76,16 +75,16 @@ struct ExternalFacesHashSortMinPointId
     using ExecutionSignature = void(_2, _3, _4, CellShape, PointIndices, InputIndex, VisitIndex);
     using InputDomain = _1;
 
-    using ScatterType = vtkm::worklet::ScatterCounting;
+    using ScatterType = viskores::worklet::ScatterCounting;
 
     template <typename CellShapeTag, typename CellNodeVecType>
-    VTKM_EXEC void operator()(vtkm::HashType& faceHash, vtkm::Id& cellIndex,
-      vtkm::IdComponent& faceIndex, CellShapeTag shape, const CellNodeVecType& cellNodeIds,
-      vtkm::Id inputIndex, vtkm::IdComponent visitIndex) const
+    VISKORES_EXEC void operator()(viskores::HashType& faceHash, viskores::Id& cellIndex,
+      viskores::IdComponent& faceIndex, CellShapeTag shape, const CellNodeVecType& cellNodeIds,
+      viskores::Id inputIndex, viskores::IdComponent visitIndex) const
     {
-      vtkm::Id minFacePointId;
-      vtkm::exec::CellFaceMinPointId(visitIndex, shape, cellNodeIds, minFacePointId);
-      faceHash = static_cast<vtkm::HashType>(minFacePointId);
+      viskores::Id minFacePointId;
+      viskores::exec::CellFaceMinPointId(visitIndex, shape, cellNodeIds, minFacePointId);
+      faceHash = static_cast<viskores::HashType>(minFacePointId);
 
       cellIndex = inputIndex;
       faceIndex = visitIndex;
@@ -96,7 +95,7 @@ struct ExternalFacesHashSortMinPointId
   // Because there can be collisions in the face ids, this instance might
   // represent multiple faces, which have to be checked. The resulting
   // number is the total number of external faces.
-  class FaceCounts : public vtkm::worklet::WorkletReduceByKey
+  class FaceCounts : public viskores::worklet::WorkletReduceByKey
   {
   public:
     using ControlSignature = void(KeysIn keys, WholeCellSetIn<> inputCells, ValuesIn originCells,
@@ -105,28 +104,29 @@ struct ExternalFacesHashSortMinPointId
     using InputDomain = _1;
 
     template <typename CellSetType, typename OriginCellsType, typename OriginFacesType>
-    VTKM_EXEC vtkm::IdComponent operator()(const CellSetType& cellSet,
+    VISKORES_EXEC viskores::IdComponent operator()(const CellSetType& cellSet,
       const OriginCellsType& originCells, const OriginFacesType& originFaces) const
     {
-      vtkm::IdComponent numCellsOnHash = originCells.GetNumberOfComponents();
-      VTKM_ASSERT(originFaces.GetNumberOfComponents() == numCellsOnHash);
+      viskores::IdComponent numCellsOnHash = originCells.GetNumberOfComponents();
+      VISKORES_ASSERT(originFaces.GetNumberOfComponents() == numCellsOnHash);
 
       // Start by assuming all faces are unique, then remove one for each
       // face we find a duplicate for.
-      vtkm::IdComponent numExternalFaces = numCellsOnHash;
+      viskores::IdComponent numExternalFaces = numCellsOnHash;
 
-      for (vtkm::IdComponent myIndex = 0;
-           myIndex < numCellsOnHash - 1; // Don't need to check last face
-           myIndex++)
+      for (viskores::IdComponent myIndex = 0;
+        myIndex < numCellsOnHash - 1; // Don't need to check last face
+        myIndex++)
       {
-        vtkm::Id3 myFace;
-        vtkm::exec::CellFaceCanonicalId(originFaces[myIndex],
+        viskores::Id3 myFace;
+        viskores::exec::CellFaceCanonicalId(originFaces[myIndex],
           cellSet.GetCellShape(originCells[myIndex]), cellSet.GetIndices(originCells[myIndex]),
           myFace);
-        for (vtkm::IdComponent otherIndex = myIndex + 1; otherIndex < numCellsOnHash; otherIndex++)
+        for (viskores::IdComponent otherIndex = myIndex + 1; otherIndex < numCellsOnHash;
+          otherIndex++)
         {
-          vtkm::Id3 otherFace;
-          vtkm::exec::CellFaceCanonicalId(originFaces[otherIndex],
+          viskores::Id3 otherFace;
+          viskores::exec::CellFaceCanonicalId(originFaces[otherIndex],
             cellSet.GetCellShape(originCells[otherIndex]),
             cellSet.GetIndices(originCells[otherIndex]), otherFace);
           if (/*myFace[0] == otherFace[0] && */ myFace[1] == otherFace[1] &&
@@ -152,32 +152,32 @@ private:
   // visitIndex-th unique face. Basically, this method searches through all the cell/face
   // pairs looking for unique sets and returns the one associated with visitIndex.
   template <typename CellSetType, typename OriginCellsType, typename OriginFacesType>
-  VTKM_EXEC static vtkm::IdComponent FindUniqueFace(const CellSetType& cellSet,
+  VISKORES_EXEC static viskores::IdComponent FindUniqueFace(const CellSetType& cellSet,
     const OriginCellsType& originCells, const OriginFacesType& originFaces,
-    vtkm::IdComponent visitIndex)
+    viskores::IdComponent visitIndex)
   {
-    vtkm::IdComponent numCellsOnHash = originCells.GetNumberOfComponents();
-    VTKM_ASSERT(originFaces.GetNumberOfComponents() == numCellsOnHash);
+    viskores::IdComponent numCellsOnHash = originCells.GetNumberOfComponents();
+    VISKORES_ASSERT(originFaces.GetNumberOfComponents() == numCellsOnHash);
 
     // Find the visitIndex-th unique face.
-    vtkm::IdComponent numFound = 0;
-    vtkm::IdComponent myIndex = 0;
+    viskores::IdComponent numFound = 0;
+    viskores::IdComponent myIndex = 0;
     while (true)
     {
-      VTKM_ASSERT(myIndex < numCellsOnHash);
-      vtkm::Id3 myFace;
-      vtkm::exec::CellFaceCanonicalId(originFaces[myIndex],
+      VISKORES_ASSERT(myIndex < numCellsOnHash);
+      viskores::Id3 myFace;
+      viskores::exec::CellFaceCanonicalId(originFaces[myIndex],
         cellSet.GetCellShape(originCells[myIndex]), cellSet.GetIndices(originCells[myIndex]),
         myFace);
       bool foundPair = false;
-      for (vtkm::IdComponent otherIndex = 0; otherIndex < numCellsOnHash; otherIndex++)
+      for (viskores::IdComponent otherIndex = 0; otherIndex < numCellsOnHash; otherIndex++)
       {
         if (otherIndex == myIndex)
         {
           continue;
         }
-        vtkm::Id3 otherFace;
-        vtkm::exec::CellFaceCanonicalId(originFaces[otherIndex],
+        viskores::Id3 otherFace;
+        viskores::exec::CellFaceCanonicalId(originFaces[otherIndex],
           cellSet.GetCellShape(originCells[otherIndex]),
           cellSet.GetIndices(originCells[otherIndex]), otherFace);
         if (myFace == otherFace)
@@ -209,7 +209,7 @@ private:
 public:
   // Worklet that returns the number of points for each outputted face.
   // Have to manage the case where multiple faces have the same hash.
-  class NumPointsPerFace : public vtkm::worklet::WorkletReduceByKey
+  class NumPointsPerFace : public viskores::worklet::WorkletReduceByKey
   {
   public:
     using ControlSignature = void(KeysIn keys, WholeCellSetIn<> inputCells, ValuesIn originCells,
@@ -217,30 +217,30 @@ public:
     using ExecutionSignature = void(_2, _3, _4, VisitIndex, _5);
     using InputDomain = _1;
 
-    using ScatterType = vtkm::worklet::ScatterCounting;
+    using ScatterType = viskores::worklet::ScatterCounting;
 
     template <typename CountArrayType>
-    VTKM_CONT static ScatterType MakeScatter(const CountArrayType& countArray)
+    VISKORES_CONT static ScatterType MakeScatter(const CountArrayType& countArray)
     {
-      VTKM_IS_ARRAY_HANDLE(CountArrayType);
+      VISKORES_IS_ARRAY_HANDLE(CountArrayType);
       return ScatterType(countArray);
     }
 
     template <typename CellSetType, typename OriginCellsType, typename OriginFacesType>
-    VTKM_EXEC void operator()(const CellSetType& cellSet, const OriginCellsType& originCells,
-      const OriginFacesType& originFaces, vtkm::IdComponent visitIndex,
-      vtkm::IdComponent& numFacePoints) const
+    VISKORES_EXEC void operator()(const CellSetType& cellSet, const OriginCellsType& originCells,
+      const OriginFacesType& originFaces, viskores::IdComponent visitIndex,
+      viskores::IdComponent& numFacePoints) const
     {
-      vtkm::IdComponent myIndex = ExternalFacesHashSortMinPointId::FindUniqueFace(
+      viskores::IdComponent myIndex = ExternalFacesHashSortMinPointId::FindUniqueFace(
         cellSet, originCells, originFaces, visitIndex);
 
-      vtkm::exec::CellFaceNumberOfPoints(
+      viskores::exec::CellFaceNumberOfPoints(
         originFaces[myIndex], cellSet.GetCellShape(originCells[myIndex]), numFacePoints);
     }
   };
 
   // Worklet that returns the shape and connectivity for each external face
-  class BuildConnectivity : public vtkm::worklet::WorkletReduceByKey
+  class BuildConnectivity : public viskores::worklet::WorkletReduceByKey
   {
   public:
     using ControlSignature = void(KeysIn keys, WholeCellSetIn<> inputCells, ValuesIn originCells,
@@ -249,35 +249,37 @@ public:
     using ExecutionSignature = void(_2, _3, _4, VisitIndex, _5, _6, _7);
     using InputDomain = _1;
 
-    using ScatterType = vtkm::worklet::ScatterCounting;
+    using ScatterType = viskores::worklet::ScatterCounting;
 
     template <typename CellSetType, typename OriginCellsType, typename OriginFacesType,
       typename ConnectivityType>
-    VTKM_EXEC void operator()(const CellSetType& cellSet, const OriginCellsType& originCells,
-      const OriginFacesType& originFaces, vtkm::IdComponent visitIndex, vtkm::UInt8& shapeOut,
-      ConnectivityType& connectivityOut, vtkm::Id& cellIdMapOut) const
+    VISKORES_EXEC void operator()(const CellSetType& cellSet, const OriginCellsType& originCells,
+      const OriginFacesType& originFaces, viskores::IdComponent visitIndex,
+      viskores::UInt8& shapeOut, ConnectivityType& connectivityOut,
+      viskores::Id& cellIdMapOut) const
     {
-      const vtkm::IdComponent myIndex = ExternalFacesHashSortMinPointId::FindUniqueFace(
+      const viskores::IdComponent myIndex = ExternalFacesHashSortMinPointId::FindUniqueFace(
         cellSet, originCells, originFaces, visitIndex);
-      const vtkm::IdComponent myFace = originFaces[myIndex];
+      const viskores::IdComponent myFace = originFaces[myIndex];
 
       typename CellSetType::CellShapeTag shapeIn = cellSet.GetCellShape(originCells[myIndex]);
-      vtkm::exec::CellFaceShape(myFace, shapeIn, shapeOut);
+      viskores::exec::CellFaceShape(myFace, shapeIn, shapeOut);
       cellIdMapOut = originCells[myIndex];
 
-      vtkm::IdComponent numFacePoints;
-      vtkm::exec::CellFaceNumberOfPoints(myFace, shapeIn, numFacePoints);
+      viskores::IdComponent numFacePoints;
+      viskores::exec::CellFaceNumberOfPoints(myFace, shapeIn, numFacePoints);
 
-      VTKM_ASSERT(numFacePoints == connectivityOut.GetNumberOfComponents());
+      VISKORES_ASSERT(numFacePoints == connectivityOut.GetNumberOfComponents());
 
       typename CellSetType::IndicesType inCellIndices = cellSet.GetIndices(originCells[myIndex]);
 
-      for (vtkm::IdComponent facePointIndex = 0; facePointIndex < numFacePoints; facePointIndex++)
+      for (viskores::IdComponent facePointIndex = 0; facePointIndex < numFacePoints;
+        facePointIndex++)
       {
-        vtkm::IdComponent localFaceIndex;
-        vtkm::ErrorCode status =
-          vtkm::exec::CellFaceLocalIndex(facePointIndex, myFace, shapeIn, localFaceIndex);
-        if (status == vtkm::ErrorCode::Success)
+        viskores::IdComponent localFaceIndex;
+        viskores::ErrorCode status =
+          viskores::exec::CellFaceLocalIndex(facePointIndex, myFace, shapeIn, localFaceIndex);
+        if (status == viskores::ErrorCode::Success)
         {
           connectivityOut[facePointIndex] = inCellIndices[localFaceIndex];
         }
@@ -291,7 +293,7 @@ public:
   };
 
 public:
-  VTKM_CONT
+  VISKORES_CONT
   ExternalFacesHashSortMinPointId() {}
 
   void ReleaseCellMapArrays() { this->CellIdMap.ReleaseResources(); }
@@ -300,27 +302,27 @@ public:
   /// \brief ExternalFaces: Extract Faces on outside of geometry
   template <typename InCellSetType, typename ShapeStorage, typename ConnectivityStorage,
     typename OffsetsStorage>
-  VTKM_CONT void Run(const InCellSetType& inCellSet,
-    vtkm::cont::CellSetExplicit<ShapeStorage, ConnectivityStorage, OffsetsStorage>& outCellSet,
+  VISKORES_CONT void Run(const InCellSetType& inCellSet,
+    viskores::cont::CellSetExplicit<ShapeStorage, ConnectivityStorage, OffsetsStorage>& outCellSet,
     YamlWriter& log)
   {
-    using PointCountArrayType = vtkm::cont::ArrayHandle<vtkm::IdComponent>;
-    using ShapeArrayType = vtkm::cont::ArrayHandle<vtkm::UInt8, ShapeStorage>;
-    using OffsetsArrayType = vtkm::cont::ArrayHandle<vtkm::Id, OffsetsStorage>;
-    using ConnectivityArrayType = vtkm::cont::ArrayHandle<vtkm::Id, ConnectivityStorage>;
+    using PointCountArrayType = viskores::cont::ArrayHandle<viskores::IdComponent>;
+    using ShapeArrayType = viskores::cont::ArrayHandle<viskores::UInt8, ShapeStorage>;
+    using OffsetsArrayType = viskores::cont::ArrayHandle<viskores::Id, OffsetsStorage>;
+    using ConnectivityArrayType = viskores::cont::ArrayHandle<viskores::Id, ConnectivityStorage>;
 
     // Create a worklet to map the number of faces to each cell
-    vtkm::cont::ArrayHandle<vtkm::IdComponent> facesPerCell;
-    vtkm::worklet::DispatcherMapTopology<NumFacesPerCell> numFacesDispatcher;
+    viskores::cont::ArrayHandle<viskores::IdComponent> facesPerCell;
+    viskores::worklet::DispatcherMapTopology<NumFacesPerCell> numFacesDispatcher;
 
-    vtkm::cont::Timer timer;
+    viskores::cont::Timer timer;
     timer.Start();
     numFacesDispatcher.Invoke(inCellSet, facesPerCell);
     timer.Stop();
     log.AddDictionaryEntry("seconds-num-faces-per-cell", timer.GetElapsedTime());
 
     timer.Start();
-    vtkm::worklet::ScatterCounting scatterCellToFace(facesPerCell);
+    viskores::worklet::ScatterCounting scatterCellToFace(facesPerCell);
     timer.Stop();
     log.AddDictionaryEntry("seconds-face-input-count", timer.GetElapsedTime());
     facesPerCell.ReleaseResources();
@@ -333,10 +335,10 @@ public:
       return;
     }
 
-    vtkm::cont::ArrayHandle<vtkm::HashType> faceHashes;
-    vtkm::cont::ArrayHandle<vtkm::Id> originCells;
-    vtkm::cont::ArrayHandle<vtkm::IdComponent> originFaces;
-    vtkm::worklet::DispatcherMapTopology<FaceHash> faceHashDispatcher(scatterCellToFace);
+    viskores::cont::ArrayHandle<viskores::HashType> faceHashes;
+    viskores::cont::ArrayHandle<viskores::Id> originCells;
+    viskores::cont::ArrayHandle<viskores::IdComponent> originFaces;
+    viskores::worklet::DispatcherMapTopology<FaceHash> faceHashDispatcher(scatterCellToFace);
 
     timer.Start();
     faceHashDispatcher.Invoke(inCellSet, faceHashes, originCells, originFaces);
@@ -344,12 +346,12 @@ public:
     log.AddDictionaryEntry("seconds-face-hash", timer.GetElapsedTime());
 
     timer.Start();
-    vtkm::worklet::Keys<vtkm::HashType> faceKeys(faceHashes);
+    viskores::worklet::Keys<viskores::HashType> faceKeys(faceHashes);
     timer.Stop();
     log.AddDictionaryEntry("seconds-keys-build-arrays", timer.GetElapsedTime());
 
-    vtkm::cont::ArrayHandle<vtkm::IdComponent> faceOutputCount;
-    vtkm::worklet::DispatcherReduceByKey<FaceCounts> faceCountDispatcher;
+    viskores::cont::ArrayHandle<viskores::IdComponent> faceOutputCount;
+    viskores::worklet::DispatcherReduceByKey<FaceCounts> faceCountDispatcher;
 
     timer.Start();
     faceCountDispatcher.Invoke(faceKeys, inCellSet, originCells, originFaces, faceOutputCount);
@@ -362,7 +364,7 @@ public:
     log.AddDictionaryEntry("seconds-face-output-count", timer.GetElapsedTime());
 
     PointCountArrayType facePointCount;
-    vtkm::worklet::DispatcherReduceByKey<NumPointsPerFace> pointsPerFaceDispatcher(
+    viskores::worklet::DispatcherReduceByKey<NumPointsPerFace> pointsPerFaceDispatcher(
       scatterCullInternalFaces);
 
     timer.Start();
@@ -373,9 +375,9 @@ public:
     ShapeArrayType faceShapes;
 
     OffsetsArrayType faceOffsets;
-    vtkm::Id connectivitySize;
+    viskores::Id connectivitySize;
     timer.Start();
-    vtkm::cont::ConvertNumComponentsToOffsets(facePointCount, faceOffsets, connectivitySize);
+    viskores::cont::ConvertNumComponentsToOffsets(facePointCount, faceOffsets, connectivitySize);
     timer.Stop();
     log.AddDictionaryEntry("seconds-face-point-count", timer.GetElapsedTime());
 
@@ -384,14 +386,15 @@ public:
     // information to.
     faceConnectivity.Allocate(connectivitySize);
 
-    vtkm::worklet::DispatcherReduceByKey<BuildConnectivity> buildConnectivityDispatcher(
+    viskores::worklet::DispatcherReduceByKey<BuildConnectivity> buildConnectivityDispatcher(
       scatterCullInternalFaces);
 
-    vtkm::cont::ArrayHandle<vtkm::Id> faceToCellIdMap;
+    viskores::cont::ArrayHandle<viskores::Id> faceToCellIdMap;
 
     timer.Start();
     buildConnectivityDispatcher.Invoke(faceKeys, inCellSet, originCells, originFaces, faceShapes,
-      vtkm::cont::make_ArrayHandleGroupVecVariable(faceConnectivity, faceOffsets), faceToCellIdMap);
+      viskores::cont::make_ArrayHandleGroupVecVariable(faceConnectivity, faceOffsets),
+      faceToCellIdMap);
     timer.Stop();
     log.AddDictionaryEntry("seconds-build-connectivity", timer.GetElapsedTime());
 
@@ -399,13 +402,13 @@ public:
     this->CellIdMap = faceToCellIdMap;
   }
 
-  vtkm::cont::ArrayHandle<vtkm::Id> GetCellIdMap() const { return this->CellIdMap; }
+  viskores::cont::ArrayHandle<viskores::Id> GetCellIdMap() const { return this->CellIdMap; }
 
 private:
-  vtkm::cont::ArrayHandle<vtkm::Id> CellIdMap;
+  viskores::cont::ArrayHandle<viskores::Id> CellIdMap;
 
 }; // struct ExternalFacesHashSortMinPointId
 }
-} // namespace vtkm::worklet
+} // namespace viskores::worklet
 
-#endif // vtk_m_worklet_ExternalFacesHashSortMinPointId_h
+#endif // viskores_worklet_ExternalFacesHashSortMinPointId_h

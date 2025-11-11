@@ -1,0 +1,41 @@
+- vtk-version: 9.5.2
+  viskores-version: 1.0.0
+  hostname: frontier10252
+  date: 2025-11-05T22:47:34-0500
+  device: Kokkos
+  num-threads: 128
+  input-file: /ccs/home/spyridon97/Data/F-15.vtu
+  topology-connections: regular
+  num-input-points: 116414075
+  num-input-cells: 246056538
+  dataset-memory-used: 11020084
+  experiments:
+    - algorithm-name: DP-Hash-Sort
+      hash-name: FNV1A
+      full-name: DP-Hash-Sort FNV1A
+[0m[31m2025-11-05 22:51:05.767 ( 211.751s) [main thread     ]         TryExecute.cxx:86     ERR| TryExecute encountered an error: std::bad_alloc: hipErrorOutOfMemory: out of memory[0m
+[0m[31m2025-11-05 22:51:05.767 ( 211.751s) [main thread     ]         TryExecute.cxx:86     ERR| Failing functor: viskores::cont::detail::SortByKeyFunctor[0m
+[0m[31m2025-11-05 22:51:05.767 ( 211.751s) [main thread     ]         TryExecute.cxx:86     ERR| Failing device: Kokkos[0m
+[0m[31m2025-11-05 22:51:05.793 ( 211.777s) [main thread     ]         TryExecute.cxx:45     ERR| TryExecute encountered an error: Bad allocation (Failed to allocate 9692613344 bytes on Kokkos device)[0m
+[0m[31m2025-11-05 22:51:05.793 ( 211.777s) [main thread     ]         TryExecute.cxx:45     ERR| Failing functor: viskores::cont::detail::ScanExtendedFunctor<long long>[0m
+[0m[31m2025-11-05 22:51:05.793 ( 211.777s) [main thread     ]         TryExecute.cxx:45     ERR| Failing device: Kokkos[0m
+[0m[31m2025-11-05 22:51:05.793 ( 211.777s) [main thread     ]         TryExecute.cxx:45     ERR| The failing device has been disabled.[0m
+[0m[1m[91m
+Loguru caught a signal: SIGSEGV
+[0m[0m[31mStack trace:
+14            0x5d6201 /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x5d6201]
+13      0x7fffcaa77f35 __libc_start_main + 135
+12      0x7fffcaa77e6c /lib64/libc.so.6(+0x40e6c) [0x7fffcaa77e6c]
+11            0x6c1fbf /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x6c1fbf]
+10            0x6cbd60 /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x6cbd60]
+9             0x6d2394 /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x6d2394]
+8             0x6d30ec /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x6d30ec]
+7             0x6d4c28 viskores::worklet::Keys<unsigned int>::Keys<viskores::cont::StorageTagBasic>(viskores::cont::ArrayHandle<unsigned int, viskores::cont::StorageTagBasic> const&, viskores::cont::DeviceAdapterId) + 88
+6       0x7fffd05475ae void viskores::worklet::Keys<unsigned int>::BuildArrays<viskores::cont::ArrayHandle<unsigned int, viskores::cont::StorageTagBasic> >(viskores::cont::ArrayHandle<unsigned int, viskores::cont::StorageTagBasic> const&, viskores::worklet::KeysSortType, viskores::cont::DeviceAdapterId) + 126
+5       0x7fffd0547b0d void viskores::worklet::Keys<unsigned int>::BuildArraysInternal<viskores::cont::ArrayHandle<unsigned int, viskores::cont::StorageTagBasic> >(viskores::cont::ArrayHandle<unsigned int, viskores::cont::StorageTagBasic>&, viskores::cont::DeviceAdapterId) + 893
+4       0x7fffd054d204 long long viskores::cont::ArrayGetValue<long long, viskores::cont::StorageTagBasic>(long long, viskores::cont::ArrayHandle<long long, viskores::cont::StorageTagBasic> const&) + 84
+3       0x7fffd05654c0 void viskores::cont::ArrayGetValues<viskores::cont::StorageTagBasic, long long, viskores::cont::StorageTagBasic >(viskores::cont::ArrayHandle<long long, viskores::cont::StorageTagBasic> const&, viskores::cont::ArrayHandle<long long, viskores::cont::StorageTagBasic> const&, std::vector<long long >&) + 208
+2       0x7fffd05655c8 void viskores::cont::ArrayGetValues<viskores::cont::StorageTagBasic, long long, viskores::cont::StorageTagBasic, viskores::cont::StorageTagBasic>(viskores::cont::ArrayHandle<long long, viskores::cont::StorageTagBasic> const&, viskores::cont::ArrayHandle<long long, viskores::cont::StorageTagBasic> const&, viskores::cont::ArrayHandle<long long, viskores::cont::StorageTagBasic>&) + 72
+1       0x7fffcf3a786e viskores::cont::internal::ArrayGetValuesImpl(viskores::cont::UnknownArrayHandle const&, viskores::cont::UnknownArrayHandle const&, viskores::cont::UnknownArrayHandle const&, std::integral_constant<bool, false>) + 110
+0       0x7fffcf3ab20f /lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/_deps/vtk-build/lib64/libviskores_cont-9.5.so.1.0(+0x28f720f) [0x7fffcf3ab20f][0m
+[0m[31m2025-11-05 22:51:05.793 ( 211.777s) [main thread     ]                       :0     FATL| Signal: SIGSEGV[0m

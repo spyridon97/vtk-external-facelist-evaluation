@@ -28,9 +28,8 @@ datasets_dir = os.path.join(home_dir, "Data")  # Make sure this is the correct d
 results_dir = os.path.join(evaluation_dir, "results")
 # Make sure this is the correct configuration
 # configuration = "testing"
-# configuration = f"frontier_rocm5.7.0_tbb2021.13.0_kokkos4.1.00"
-# configuration = f"frontier_rocm6.2.0_tbb2022.0.0_kokkos4.4.01"
-configuration = f"frontier_rocm6.2.4_tbb2022.0.0_kokkos4.5.00"
+configuration = f"frontier_rocm7.0.2_tbb2022.3.0_kokkos4.7.01"
+# configuration = f"sycamore_cuda12.9_tbb2022.3.0_kokkos4.7.01"
 config_dir = os.path.join(results_dir, configuration)
 
 data_dir = os.path.join(config_dir, "data")
@@ -55,11 +54,14 @@ perf_executable = shutil.which("perf")
 cache_evaluator = f"{perf_executable} stat -e cache-misses"
 
 # Datasets # Make sure these are the correct datasets ordered from smallest to biggest
-datasets = [f"{datasets_dir}/JSM.vtu",
+datasets = [f"{datasets_dir}/Body.vtu",
+            f"{datasets_dir}/JSM.vtu",
             f"{datasets_dir}/F-15.vtu",
+            f"{datasets_dir}/Synthetic.vtu",
             f"{datasets_dir}/JSM-tet.vtu",
-            f"{datasets_dir}/F-15-tet.vtu"]
-biggest_datasets = datasets[2:]
+            f"{datasets_dir}/F-15-tet.vtu"
+            ]
+biggest_datasets = datasets[-2:]  # Last two datasets
 
 # Algorithms
 algorithms_names = {"--s-classifier": "S-Classifier", "--s-hash": "S-Hash", "--p-classifier": "P-Classifier",
@@ -69,10 +71,10 @@ algorithms = ["--s-classifier", "--s-hash", "--p-classifier", "--p-hash", "--dp-
               "--dp-hash-count"]
 parallel_algorithms = algorithms[2:]
 vtk_algorithms = algorithms[:4]
-vtkm_algorithms = algorithms[4:]
+viskores_algorithms = algorithms[4:]
 algorithms_joined = " ".join(algorithms)
 parallel_algorithms_joined = " ".join(parallel_algorithms)
-vtkm_algorithms_joined = " ".join(vtkm_algorithms)
+viskores_algorithms_joined = " ".join(viskores_algorithms)
 
 # Hash functions
 hash_function_names = ["All", "FNV1A", "MinPointID"]

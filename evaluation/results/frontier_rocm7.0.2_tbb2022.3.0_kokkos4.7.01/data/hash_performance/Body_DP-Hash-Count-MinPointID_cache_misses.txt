@@ -1,0 +1,29 @@
+- vtk-version: 9.5.2
+  viskores-version: 1.0.0
+  hostname: frontier10406
+  date: 2025-11-06T08:44:04-0500
+  device: TBB
+  num-threads: 1
+  input-file: /ccs/home/spyridon97/Data/Body.vtu
+  topology-connections: regular
+  num-input-points: 21170654
+  num-input-cells: 118530353
+  dataset-memory-used: 6160172
+  experiments:
+    - algorithm-name: DP-Hash-Count
+      hash-name: MinPointID
+      full-name: DP-Hash-Count MinPointID
+      num-output-points: 5117226
+      num-output-cells: 10234324
+      first-run-time: 30.7171
+
+ Performance counter stats for '/lustre/orion/csc143/scratch/spyridon97/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation -i /ccs/home/spyridon97/Data/Body.vtu -d TBB -t 1 --dp-hash-count -f 2 -n 0':
+
+     1,439,568,649      cache-misses                                                          
+
+      89.024658949 seconds time elapsed
+
+      51.609001000 seconds user
+       7.635917000 seconds sys
+
+

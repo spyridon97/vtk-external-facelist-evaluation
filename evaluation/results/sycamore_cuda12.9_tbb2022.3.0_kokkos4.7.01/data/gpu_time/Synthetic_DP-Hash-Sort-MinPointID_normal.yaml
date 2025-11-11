@@ -1,0 +1,39 @@
+- vtk-version: 9.5.2
+  viskores-version: 1.0.0
+  hostname: g15070408
+  date: 2025-11-08T05:23:02-0500
+  device: Kokkos
+  num-threads: 128
+  input-file: /work/users/s/p/spiros/Data/Synthetic.vtu
+  topology-connections: regular
+  num-input-points: 251239591
+  num-input-cells: 250047000
+  dataset-memory-used: 20947620
+  experiments:
+    - algorithm-name: DP-Hash-Sort
+      hash-name: MinPointID
+      full-name: DP-Hash-Sort MinPointID
+[0m[31m2025-11-08 05:24:25.281 (  82.539s) [main thread     ]         TryExecute.cxx:86     ERR| TryExecute encountered an error: std::bad_alloc: cudaErrorMemoryAllocation: out of memory[0m
+[0m[31m2025-11-08 05:24:25.281 (  82.539s) [main thread     ]         TryExecute.cxx:86     ERR| Failing functor: viskores::cont::detail::SortByKeyFunctor[0m
+[0m[31m2025-11-08 05:24:25.281 (  82.539s) [main thread     ]         TryExecute.cxx:86     ERR| Failing device: Kokkos[0m
+[0m[31m2025-11-08 05:24:25.285 (  82.542s) [main thread     ]         TryExecute.cxx:44     ERR| TryExecute encountered an error: Bad allocation (Failed to allocate 6001128000 bytes on Kokkos device)[0m
+[0m[31m2025-11-08 05:24:25.285 (  82.542s) [main thread     ]         TryExecute.cxx:44     ERR| Failing functor: viskores::cont::detail::ReduceByKeyFunctor[0m
+[0m[31m2025-11-08 05:24:25.285 (  82.542s) [main thread     ]         TryExecute.cxx:44     ERR| Failing device: Kokkos[0m
+[0m[31m2025-11-08 05:24:25.285 (  82.542s) [main thread     ]         TryExecute.cxx:44     ERR| The failing device has been disabled.[0m
+[0m[1m[91m
+Loguru caught a signal: SIGSEGV
+[0m[0m[31mStack trace:
+12            0x4201c5 /work/users/s/p/spiros/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x4201c5]
+11      0x7f4c5e829640 __libc_start_main + 128
+10      0x7f4c5e829590 /lib64/libc.so.6(+0x29590) [0x7f4c5e829590]
+9             0x41fbdb /work/users/s/p/spiros/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x41fbdb]
+8             0x5fc648 /work/users/s/p/spiros/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x5fc648]
+7             0x5fbb70 /work/users/s/p/spiros/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x5fbb70]
+6             0x5e2204 /work/users/s/p/spiros/vtk-external-facelist-evaluation/build/vtk-external-facelist-evaluation() [0x5e2204]
+5       0x7f4c65d215d5 void viskores::worklet::Keys<unsigned int>::BuildArrays<viskores::cont::ArrayHandle<unsigned int, viskores::cont::StorageTagBasic> >(viskores::cont::ArrayHandle<unsigned int, viskores::cont::StorageTagBasic> const&, viskores::worklet::KeysSortType, viskores::cont::DeviceAdapterId) + 197
+4       0x7f4c65d1f30f void viskores::worklet::Keys<unsigned int>::BuildArraysInternal<viskores::cont::ArrayHandle<unsigned int, viskores::cont::StorageTagBasic> >(viskores::cont::ArrayHandle<unsigned int, viskores::cont::StorageTagBasic>&, viskores::cont::DeviceAdapterId) + 1391
+3       0x7f4c65cd971f /work/users/s/p/spiros/vtk-external-facelist-evaluation/build/_deps/vtk-build/lib64/libviskores_worklet-9.5.so.1.0(+0x2971f) [0x7f4c65cd971f]
+2       0x7f4c65cf3829 /work/users/s/p/spiros/vtk-external-facelist-evaluation/build/_deps/vtk-build/lib64/libviskores_worklet-9.5.so.1.0(+0x43829) [0x7f4c65cf3829]
+1       0x7f4c65cf31d7 /work/users/s/p/spiros/vtk-external-facelist-evaluation/build/_deps/vtk-build/lib64/libviskores_worklet-9.5.so.1.0(+0x431d7) [0x7f4c65cf31d7]
+0       0x7f4c628c5098 viskores::cont::internal::ArrayGetValuesImpl(viskores::cont::UnknownArrayHandle const&, viskores::cont::UnknownArrayHandle const&, viskores::cont::UnknownArrayHandle const&, std::integral_constant<bool, false>) + 17256[0m
+[0m[31m2025-11-08 05:24:25.285 (  82.542s) [main thread     ]                       :0     FATL| Signal: SIGSEGV[0m
