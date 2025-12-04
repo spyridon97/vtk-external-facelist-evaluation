@@ -100,9 +100,6 @@ cmake -G "${cmake_generator}" -S "${vtkefe_src_dir}" -B "${vtkefe_build_dir}" \
   -DTBB_ROOT="${tbb_install_dir}" \
   -DViskores_USE_DOUBLE_PRECISION=ON
 
-# Viskores configuration fix to enable Kokkos Thrust support
-sed -i 's|/\* #undef VISKORES_ENABLE_KOKKOS_THRUST \*/|#define VISKORES_ENABLE_KOKKOS_THRUST|g' "${vtkefe_build_dir}/build/VTK/ThirdParty/viskores/vtkviskores/viskores/include/viskores/internal/Configure.h"
-
 time cmake --build "${vtkefe_build_dir}" -j
 cmake --install "${vtkefe_build_dir}"
 fi

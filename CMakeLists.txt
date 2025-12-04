@@ -28,7 +28,7 @@ include(FetchContent)
 FetchContent_Declare(
   VTK
   GIT_REPOSITORY https://gitlab.kitware.com/vtk/vtk.git
-  GIT_TAG v9.5.2
+  GIT_TAG v9.6.0.rc1
   GIT_PROGRESS ON
   SOURCE_DIR VTK
 )

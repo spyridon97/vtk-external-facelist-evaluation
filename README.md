@@ -10,18 +10,19 @@ The algorithms that are evaluated are the following:
 2. VTK's S-Hash found in src/vtkDataSetSurfaceFilterSHash
 3. VTK's P-Classifier found in src/vtkGeometryFilterPClassifier
 4. VTK's P-Hash found in src/vtkGeometryFilterPHash
-5. Viskores' P-Hash-Sort with FNV1A found in src/ExternalFacesHashSortFnv1a
-6. Viskores' P-Hash-Sort with MinPointID found in src/ExternalFacesHashSortMinPointId
-7. Viskores' P-Hash-Fight with FNV1A found in src/ExternalFacesHashFightFnv1a
-8. Viskores' P-Hash-Fight with MinPointID found in src/ExternalFacesHashFightMinPointId
-9. Viskores' P-Hash-Count with FNV1A found in src/ExternalFacesHashCountFnv1a
-10. Viskores' P-Hash-Count with MinPointID found in src/ExternalFacesHashCountMinPointId
+5. Viskores' DP-Hash-Sort with FNV1A found in src/ExternalFacesHashSortFnv1a
+6. Viskores' DP-Hash-Sort with MinPointID found in src/ExternalFacesHashSortMinPointId
+7. Viskores' DP-Hash-Fight with FNV1A found in src/ExternalFacesHashFightFnv1a
+8. Viskores' DP-Hash-Fight with MinPointID found in src/ExternalFacesHashFightMinPointId
+9. Viskores' DP-Hash-Count with FNV1A found in src/ExternalFacesHashCountFnv1a
+10. Viskores' DP-Hash-Count with MinPointID found in src/ExternalFacesHashCountMinPointId
 
 ## Compilation
 
-To compile the executable on the frontier supercomputer, you can use the script `compile_frontier.sh`.
-If you are compiling locally, you can get inspiration from the `compile_frontier.sh` script, and remove or change
-what you do or do not need depending on your system.
+To compile the executable on the Frontier supercomputer (AMD GPUs), you can use the script `compile_frontier.sh`.
+To compile the executable, on UNC's Sycamore cluster (NVIDIA GPUs), you can use the script `compile_sycamore.sh`.
+If you are compiling locally, you can get inspiration from either of the above scripts, and change what's needed
+based on your system.
 
 ## Executable
 
@@ -48,9 +49,9 @@ Options:
   --s-hash                    Run the S-Hash algorithm
   --p-classifier              Run the P-Classifier algorithm
   --p-hash                    Run the P-Hash algorithm
-  --p-hash-fight              Run the P-HashFight algorithm
-  --p-hash-sort               Run the P-Hash-Sort algorithm
-  --p-hash-count              Run the P-Hash-Count algorithm
+  --dp-hash-fight             Run the DP-Hash-Fight algorithm
+  --dp-hash-sort              Run the DP-Hash-Sort algorithm
+  --dp-hash-count             Run the DP-Hash-Count algorithm
   -f,--hash-function INT:INT in [0 - 2]
                               Hash function, where 0 is All, 1 is FNV1A, 2 is MinPointID (Default: 0)
 ```

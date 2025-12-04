@@ -1,5 +1,5 @@
-- vtk-version: 9.5.2
-  viskores-version: 1.0.0
+- vtk-version: 9.6.0-rc1
+  viskores-version: 1.1.0
   hostname: frontier10406
   date: 2025-11-06T09:06:42-0500
   device: TBB
